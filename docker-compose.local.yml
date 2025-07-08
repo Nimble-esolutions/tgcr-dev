@@ -1,0 +1,38 @@
+services:
+  nextjs-app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      #   - .:/app
+      - ./.env:/app/.env:ro
+      - ./scripts/entrypoint.sh:/app/entrypoint.sh:ro
+    environment:
+      - NODE_ENV=development
+      #- NODE_ENV=production
+      #- DATABASE_URL=mysql://root:my-secret-pw@mysql:3306/tgcr_db?schema=public #may be we can remove this
+      - ELASTICSEARCH_URL=http://elasticsearch:9200 # Added for logging
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+      - observability-net # Added for logging/monitoring
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: tgcr_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network # MySQL stays isolated for security
+
+networks:
+  app-network:
+    driver: bridge
+  observability-net:
+    external: true # References the network we created
+
+volumes:
+  mysql_data:

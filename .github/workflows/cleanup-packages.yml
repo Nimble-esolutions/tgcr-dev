@@ -1,0 +1,19 @@
+name: Cleanup Old Packages
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Runs daily at 3 AM UTC
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: smartsquaregmbh/delete-old-packages@v0.8.1
+        with:
+          organization: t-gcr
+          type: docker  # npm or docker, container, maven, etc.
+          names: |
+            tgcr-app
+          keep: 6
+          token: ${{ secrets.GITHUB_TOKEN }}
