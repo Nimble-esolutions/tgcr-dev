@@ -577,6 +577,7 @@ enum LessonRequestStatus {
   Cancelled
   Started
   Completed
+  Failed
 }
 
 enum Gender {

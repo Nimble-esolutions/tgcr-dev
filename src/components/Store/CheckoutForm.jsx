@@ -91,7 +91,7 @@ const CheckoutForm = ({ lang, dict }) => {
 						cartItems={cartItems}
 					/> */}
 						<Elements stripe={stripePromise}>
-							<PaymentForm lang={lang} dict={dict} />
+							<PaymentForm lang={lang} dict={dict} groupedCart={groupedCart}/>
 						</Elements>
 					</div>
 				)}
