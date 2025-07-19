@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useRef } from "react"
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 import Stripe from "stripe";
 
-export default function PaymentSuccess() {
-  const router = useRouter()
-  const params = useSearchParams()
-  const sessionId = params.get("session_id")
-  const sessionData: any = sessionStorage.getItem('paymentSession');
-  const groupedCart: any = sessionStorage.getItem('groupedCart');
+export default function PaymentCancel() {
+  const router = useRouter();
+  const params = useSearchParams();
+  const sessionId = params.get("session_id");
+  const sessionData = sessionStorage.getItem('paymentSession');
+  const groupedCart = sessionStorage.getItem('groupedCart');
   const parseData = JSON.parse(sessionData);
   const parseCartData = JSON.parse(groupedCart);
   const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
@@ -20,17 +20,19 @@ export default function PaymentSuccess() {
     if (didRun.current) return;
     didRun.current = true;
 
-    // check storage lock to prevent repeat API call
-    const paymentRan = sessionStorage.getItem(`paymentHandled_${sessionId}`);
-    if (paymentRan) {
-      console.log("Payment handler already ran for this session, skipping API call.");
+    // check if cancel call already ran for this session
+    const cancelRan = sessionStorage.getItem(`paymentCancelHandled_${sessionId}`);
+    if (cancelRan) {
+      console.log("Payment cancel handler already ran for this session, skipping.");
       return;
     }
 
     const getPayment = async () => {
-      const sessionDetails: any = await stripe.checkout.sessions.retrieve(parseData.id);
+      let sessionDetails = await stripe.checkout.sessions.retrieve(
+        parseData.id
+      );
 
-      const amount = Number(sessionDetails.metadata.amount)
+      const amount = Number(sessionDetails.metadata.amount);
       const studentId = sessionDetails.metadata.student_id;
       const orderNumber = sessionDetails.metadata.orderNumber;
 
@@ -42,7 +44,7 @@ export default function PaymentSuccess() {
         body: JSON.stringify({
           amount: amount,
           studentID: studentId,
-          paymentStatus: 'Paid',
+          paymentStatus: "Failed",
           paymentVia: sessionDetails.payment_method_types[0],
           paymentId: sessionDetails.payment_intent,
           orderNumber: orderNumber,
@@ -61,21 +63,22 @@ export default function PaymentSuccess() {
           body: JSON.stringify({
             ...parseCartData,
             orderId: sessionDetails.metadata.orderId,
+            status: 'Failed'
           }),
         });
         const uploadResponse = await uploadData.json();
       }
 
-      // Mark this session as handled
-      sessionStorage.setItem(`paymentHandled_${sessionId}`, "true");
+      // mark this cancel handled
+      sessionStorage.setItem(`paymentCancelHandled_${sessionId}`, "true");
     };
 
     getPayment();
   }, [sessionId]);
 
-  const handleGoToLessons = () => {
-    router.push("/student/lessons/upcoming?status=success")
-  }
+  const handleGoToCart = () => {
+    router.push("/cart?status=cancel");
+  };
 
   return (
     <div
@@ -93,14 +96,14 @@ export default function PaymentSuccess() {
           fontSize: "24px",
           fontWeight: "bold",
           marginBottom: "20px",
-          color: "#3877b0",
+          color: "#d9534f",
         }}
       >
-        Payment Successful!
+        Payment Cancelled
       </h1>
-      <button className="default-btn" onClick={handleGoToLessons}>
-        Go to My Lessons
+      <button className="default-btn" onClick={handleGoToCart}>
+        Back to Cart
       </button>
     </div>
-  )
+  );
 }
