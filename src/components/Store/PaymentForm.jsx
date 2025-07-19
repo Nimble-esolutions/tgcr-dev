@@ -11,9 +11,7 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cardComplete, setCardComplete] = useState(false);
   const [cardError, setCardError] = useState("");
-  const [customerEmail, setCustomerEmail] = useState(
-    "aniketdevmoresnt@gmail.com"
-  );
+  const [customerEmail, setCustomerEmail] = useState("");
 
   const store = useCartStore();
   //   const stripe = useStripe();
