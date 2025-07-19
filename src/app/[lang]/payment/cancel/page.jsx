@@ -8,11 +8,15 @@ export default function PaymentCancel() {
   const router = useRouter();
   const params = useSearchParams();
   const sessionId = params.get("session_id");
-  const sessionData = sessionStorage.getItem('paymentSession');
-  const groupedCart = sessionStorage.getItem('groupedCart');
-  const parseData = JSON.parse(sessionData);
-  const parseCartData = JSON.parse(groupedCart);
-  const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
+
+  const sessionData = sessionStorage.getItem("paymentSession");
+  const groupedCart = sessionStorage.getItem("groupedCart");
+  const parseData = sessionData ? JSON.parse(sessionData) : null;
+  const parseCartData = groupedCart ? JSON.parse(groupedCart) : null;
+
+  const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY || "", {
+    apiVersion: "2024-04-10",
+  });
 
   const didRun = useRef(false);
 
@@ -20,17 +24,30 @@ export default function PaymentCancel() {
     if (didRun.current) return;
     didRun.current = true;
 
-    // check if cancel call already ran for this session
-    const cancelRan = sessionStorage.getItem(`paymentCancelHandled_${sessionId}`);
-    if (cancelRan) {
-      console.log("Payment cancel handler already ran for this session, skipping.");
+    if (!parseData) {
+      console.error("No payment session data found.");
       return;
     }
 
-    const getPayment = async () => {
-      let sessionDetails = await stripe.checkout.sessions.retrieve(
-        parseData.id
-      );
+    const handleCancel = async () => {
+      const sessionDetails = await stripe.checkout.sessions.retrieve(parseData.id);
+
+      console.log("Session details:", sessionDetails);
+
+      const paymentIntentId = sessionDetails.payment_intent;
+
+      if (!paymentIntentId) {
+        console.error("No payment_intent found.");
+        return;
+      }
+
+      // Use payment_intent as unique lock
+      const lockKey = `paymentCancelHandled_${paymentIntentId}`;
+      const cancelRan = sessionStorage.getItem(lockKey);
+      if (cancelRan) {
+        console.log("Cancel handler already ran for this paymentIntent, skipping.");
+        return;
+      }
 
       const amount = Number(sessionDetails.metadata.amount);
       const studentId = sessionDetails.metadata.student_id;
@@ -42,17 +59,18 @@ export default function PaymentCancel() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: amount,
+          amount,
           studentID: studentId,
           paymentStatus: "Failed",
           paymentVia: sessionDetails.payment_method_types[0],
-          paymentId: sessionDetails.payment_intent,
-          orderNumber: orderNumber,
-          cartData: sessionDetails.metadata.cartData
+          paymentId: paymentIntentId,
+          orderNumber,
+          cartData: sessionDetails.metadata.cartData,
         }),
       });
 
       const data = await response.json();
+      console.log("Update order response:", data);
 
       if (data.status) {
         const uploadData = await fetch("/api/lesson-request", {
@@ -63,18 +81,20 @@ export default function PaymentCancel() {
           body: JSON.stringify({
             ...parseCartData,
             orderId: sessionDetails.metadata.orderId,
-            status: 'Failed'
+            status: "Failed",
           }),
         });
+
         const uploadResponse = await uploadData.json();
+        console.log("Lesson request response:", uploadResponse);
       }
 
-      // mark this cancel handled
-      sessionStorage.setItem(`paymentCancelHandled_${sessionId}`, "true");
+      // ✅ Mark this cancel flow as handled
+      sessionStorage.setItem(lockKey, "true");
     };
 
-    getPayment();
-  }, [sessionId]);
+    handleCancel();
+  }, [sessionId, parseData, parseCartData, stripe]);
 
   const handleGoToCart = () => {
     router.push("/cart?status=cancel");

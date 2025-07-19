@@ -9,7 +9,6 @@ export async function PUT(request) {
     const {
       amount,
       currency,
-      customer_email,
       studentID,
       paymentStatus,
       paymentVia,

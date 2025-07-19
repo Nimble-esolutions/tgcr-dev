@@ -1,18 +1,25 @@
-"use client"
+"use client";
 
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useRef } from "react"
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 import Stripe from "stripe";
 
 export default function PaymentSuccess() {
-  const router = useRouter()
-  const params = useSearchParams()
-  const sessionId = params.get("session_id")
-  const sessionData = sessionStorage.getItem('paymentSession');
-  const groupedCart = sessionStorage.getItem('groupedCart');
-  const parseData = JSON.parse(sessionData);
-  const parseCartData = JSON.parse(groupedCart);
-  const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
+  const router = useRouter();
+  const params = useSearchParams();
+  const sessionId = params.get("session_id");
+
+  // Read session data & cart from storage
+  const sessionData = sessionStorage.getItem("paymentSession");
+  const groupedCart = sessionStorage.getItem("groupedCart");
+
+  // Defensive parse
+  const parseData = sessionData ? JSON.parse(sessionData) : null;
+  const parseCartData = groupedCart ? JSON.parse(groupedCart) : null;
+
+  const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY || "", {
+    apiVersion: "2024-04-10",
+  });
 
   const didRun = useRef(false);
 
@@ -20,17 +27,33 @@ export default function PaymentSuccess() {
     if (didRun.current) return;
     didRun.current = true;
 
-    // check storage lock to prevent repeat API call
-    const paymentRan = sessionStorage.getItem(`paymentHandled_${sessionId}`);
-    if (paymentRan) {
-      console.log("Payment handler already ran for this session, skipping API call.");
+    if (!parseData) {
+      console.error("No payment session data found in storage.");
       return;
     }
 
     const getPayment = async () => {
       const sessionDetails = await stripe.checkout.sessions.retrieve(parseData.id);
 
-      const amount = Number(sessionDetails.metadata.amount)
+      console.log("sessionDetails:", sessionDetails);
+
+      const paymentIntentId = sessionDetails.payment_intent;
+
+      if (!paymentIntentId) {
+        console.error("No payment_intent found on session.");
+        return;
+      }
+
+      // Lock key based on paymentIntent
+      const lockKey = `paymentHandled_${paymentIntentId}`;
+
+      const paymentRan = sessionStorage.getItem(lockKey);
+      if (paymentRan) {
+        console.log("Payment handler already ran for this paymentIntent, skipping.");
+        return;
+      }
+
+      const amount = Number(sessionDetails.metadata.amount);
       const studentId = sessionDetails.metadata.student_id;
       const orderNumber = sessionDetails.metadata.orderNumber;
 
@@ -40,17 +63,18 @@ export default function PaymentSuccess() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: amount,
+          amount,
           studentID: studentId,
-          paymentStatus: 'Paid',
+          paymentStatus: "Paid",
           paymentVia: sessionDetails.payment_method_types[0],
-          paymentId: sessionDetails.payment_intent,
-          orderNumber: orderNumber,
-          cartData: sessionDetails.metadata.cartData
+          paymentId: paymentIntentId,
+          orderNumber,
+          cartData: sessionDetails.metadata.cartData,
         }),
       });
 
       const data = await response.json();
+      console.log("Update order response:", data);
 
       if (data.status) {
         const uploadData = await fetch("/api/lesson-request", {
@@ -63,19 +87,21 @@ export default function PaymentSuccess() {
             orderId: sessionDetails.metadata.orderId,
           }),
         });
+
         const uploadResponse = await uploadData.json();
+        console.log("Lesson request response:", uploadResponse);
       }
 
-      // Mark this session as handled
-      sessionStorage.setItem(`paymentHandled_${sessionId}`, "true");
+      // ✅ Mark payment as handled for this unique paymentIntent
+      sessionStorage.setItem(lockKey, "true");
     };
 
     getPayment();
-  }, [sessionId]);
+  }, [sessionId, parseData, parseCartData, stripe]);
 
   const handleGoToLessons = () => {
-    router.push("/student/lessons/upcoming?status=success")
-  }
+    router.push("/student/lessons/upcoming?status=success");
+  };
 
   return (
     <div
@@ -102,5 +128,5 @@ export default function PaymentSuccess() {
         Go to My Lessons
       </button>
     </div>
-  )
+  );
 }

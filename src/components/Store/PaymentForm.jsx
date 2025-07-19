@@ -11,7 +11,6 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cardComplete, setCardComplete] = useState(false);
   const [cardError, setCardError] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
 
   const store = useCartStore();
   //   const stripe = useStripe();
@@ -55,13 +54,11 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
           },
         ],
         mode: "payment",
-        customer_email: customerEmail,
         success_url: `${window.location.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${window.location.origin}/payment/cancel?session_id={CHECKOUT_SESSION_ID}`,
         metadata: {
           orderId: uniqueId,
           orderNumber: orderNumber,
-          customer_email: customerEmail,
           amount: amount,
           student_id: itemData.items[0].studentId,
           cartData: JSON.stringify(cartData)
@@ -72,12 +69,10 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
           metadata: {
             orderId: uniqueId,
             orderNumber: orderNumber,
-            customer_email: customerEmail,
             amount: amount,
             student_id: itemData.items[0].studentId,
             cartData: JSON.stringify(cartData)
           },
-          receipt_email: customerEmail,
         },
       });
 
@@ -94,7 +89,6 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
             amount,
             currency,
             orderId: uniqueId,
-            customer_email: customerEmail,
             studentID: itemData.items[0].studentId,  // ✅ Must match User.id
             paymentVia: session.payment_method_types[0],
             paymentId: session.payment_intent,

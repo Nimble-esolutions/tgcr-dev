@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { amount, currency, customer_email, studentID, paymentStatus, paymentVia, paymentId, orderNumber, orderId  } = body;
+    const { amount, currency, studentID, paymentStatus, paymentVia, paymentId, orderNumber, orderId  } = body;
 
     if (!amount || !studentID) {
       return NextResponse.json({ error: "Amount and studentID are required.", data: body }, { status: 400 });
