@@ -61,4 +61,38 @@ const calculateDiscount = (
 	return (beforeDiscount - discountAmount).toFixed(2);
 };
 
-export { generateLessonId, generateBookingId, calculateDiscount, calculateTotal };
+const validateStripeMinimum = (amount: number | string, currency: string) => {
+	// Hardcoded FX rates (approx)
+	const fxToUsd: Record<string, number> = {
+	  usd: 1,
+	  eur: 1.1,   // 1 EUR = $1.10
+	  gbp: 1.25,  // 1 GBP = $1.25
+	  cad: 0.74,  // 1 CAD = $0.74
+	  aud: 0.67,  // 1 AUD = $0.67
+	  inr: 0.0117, // Use closer live estimate if possible!
+	  jpy: 0.0068,
+	  kwd: 3.25,
+	};
+  
+	const cur = currency.toLowerCase();
+	const fxRate = fxToUsd[cur] || 1;
+  
+	const amtMajor = typeof amount === "number" ? amount : parseFloat(amount);
+  
+	const approxUsd = amtMajor * fxRate;
+  
+	// Add buffer to avoid failing Stripe's live check
+	const safeBuffer = 0.02; // 2 cents
+  
+	if (approxUsd < 0.50 + safeBuffer) {
+	  return {
+		status: true,
+		message: `The Checkout Session's total amount must convert to at least ~$0.50 USD.`,
+	  };
+	}
+  
+	return { status: false };
+  };
+  
+  
+export { generateLessonId, generateBookingId, calculateDiscount, calculateTotal, validateStripeMinimum };

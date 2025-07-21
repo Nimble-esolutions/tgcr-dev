@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useCartStore } from "@/store/cartStore";
-import { calculateTotal } from "@/utils/cartUtils";
+import { calculateTotal, validateStripeMinimum } from "@/utils/cartUtils";
 import Stripe from "stripe";
+import toast from "react-hot-toast";
 
 const PaymentForm = ({ lang, dict, groupedCart }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +39,15 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
       const orderNumber = `ORD-${Date.now()}`;
       const uniqueId = crypto.randomUUID();
 
+      const validateStripeMinimumResponse = validateStripeMinimum(amount, currency);
+
+      if(validateStripeMinimumResponse.status){
+        toast.error(validateStripeMinimumResponse.message);
+        return;
+      }
+
+      sessionStorage.setItem("cartMailDetails", groupedCart);
+      // Create payment session for Stripe payment gateway
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -61,7 +71,7 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
           orderNumber: orderNumber,
           amount: amount,
           student_id: itemData.items[0].studentId,
-          cartData: JSON.stringify(cartData)
+          cartData: JSON.stringify(cartData),
         },
 
         // Configure payment method options
@@ -71,15 +81,16 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
             orderNumber: orderNumber,
             amount: amount,
             student_id: itemData.items[0].studentId,
-            cartData: JSON.stringify(cartData)
+            cartData: JSON.stringify(cartData),
           },
         },
       });
 
-      const sessionData = JSON.stringify(session)
-      sessionStorage.setItem('paymentSession', sessionData)
+      const sessionData = JSON.stringify(session);
+      sessionStorage.setItem("paymentSession", sessionData);
 
-      if(!!session){
+      // API call for creating checkout session in our database
+      if (!!session) {
         const response = await fetch("/api/cart/create-checkout-session", {
           method: "POST",
           headers: {
@@ -89,27 +100,25 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
             amount,
             currency,
             orderId: uniqueId,
-            studentID: itemData.items[0].studentId,  // ✅ Must match User.id
+            studentID: itemData.items[0].studentId,
             paymentVia: session.payment_method_types[0],
             paymentId: session.payment_intent,
-            orderNumber: orderNumber
+            orderNumber: orderNumber,
           }),
         });
-        
-        const data = await response.json()
-  
+
+        const data = await response.json();
+
         if (!session.url) {
           throw new Error("Failed to create checkout session");
         }
-  
-        if(data.status){
+
+        if (data.status) {
+          sessionStorage.setItem("groupedCart", JSON.stringify(groupedCart));
           // Redirect to Stripe Checkout
-        sessionStorage.setItem('groupedCart',JSON.stringify(groupedCart))
-        window.location.href = session.url;
+          window.location.href = session.url;
         }
       }
-
-      
     } catch (error) {
       console.log(error);
     } finally {
