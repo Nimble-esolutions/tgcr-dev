@@ -1,0 +1,13 @@
+.slider-label {
+	display: block;
+	margin-bottom: 2px;
+	color: #221638;
+	font-weight: 700;
+}
+
+.slider-value {
+	display: inline;
+	margin-bottom: 2px;
+	color: #221638;
+	font-weight: normal;
+}

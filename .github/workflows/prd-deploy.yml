@@ -1,0 +1,250 @@
+name: Production Build and Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      rollback_version:
+        description: "Rollback version (leave empty for new deploy)"
+        required: false
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_TAG: latest
+  APP_DIR: /home/deploy/deploy-tgcr
+
+jobs:
+  build-and-push:
+    if: ${{ !github.event.inputs.rollback_version }}
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
+      current_version: ${{ steps.meta.outputs.version }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # - name: Run tests
+      #   run: npm test
+
+      # - name: Security scan
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      #     format: "table"
+      #     exit-code: "1"
+      #     ignore-unfixed: true
+      #     vuln-type: "os,library"
+      #     severity: "CRITICAL"
+
+      - name: Calculate image tag
+        id: vars
+        run: echo "IMAGE_TAG=${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=prd,enable=${{ github.ref == 'refs/heads/main' }}            
+            type=raw,value=${{ env.IMAGE_TAG }}
+            type=raw,value=latest
+            type=raw,value=version-$(date +%Y%m%d%H%M%S)
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: prd
+    name: Production Deployment
+    if: github.event_name == 'workflow_dispatch' && !github.event.inputs.rollback_version
+
+    steps:
+      - run: echo "Image tag is ${{ needs.build-and-push.outputs.image_tag }}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Ensure target directories exist
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ vars.DROPLET_IP }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            mkdir -p ${{ env.APP_DIR }}   
+            chmod 750 ${{ env.APP_DIR }}
+            mkdir -p ${{ env.APP_DIR }}/nginx/conf
+            mkdir -p ${{ env.APP_DIR }}/nginx/certbot/conf
+            mkdir -p ${{ env.APP_DIR }}/nginx/certbot/www
+
+      - name: Deploy to Droplet
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ vars.DROPLET_IP }}
+          username: ${{ secrets.DEPLOY_USER  }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -e
+
+            # Export variables correctly                
+            export APP_DIR="${{ env.APP_DIR }}"           
+
+            # Create Docker config directory
+            mkdir -p ~/.docker
+
+            # Create Docker config with GitHub token
+            echo '{
+              "auths": {
+                "ghcr.io": {
+                  "auth": "${{ secrets.GH_GHCR_TOKEN_BASE64 }}"
+                }
+              }
+            }' > ~/.docker/config.json
+
+            # Ensure proper permissions
+            chmod 600 ~/.docker/config.json
+            # "Docker configuration created successfully."
+
+            IMAGE_TAG_SECOND=$(echo "${{ needs.build-and-push.outputs.image_tag }}" | sed -n '2p')
+
+            cat > ${{ env.APP_DIR }}/.env <<EOF
+            APP_DIR="${{ env.APP_DIR }}"
+            APP_NAME=${{ vars.APP_NAME }}
+            ADMIN_EMAIL="${{ vars.ADMIN_EMAIL }}"
+            APP_DOMAIN="${{ vars.APP_DOMAIN }}"
+            NODE_ENV="${{ vars.APP_NODE_ENV }}"
+            ELASTICSEARCH_URL="${{ vars.APP_ELASTICSEARCH_URL }}"           
+            DATABASE_URL="${{ secrets.DATABASE_URL }}"
+            NEXTAUTH_URL="${{ secrets.NEXTAUTH_URL }}"
+            NEXTAUTH_SECRET="${{ secrets.NEXTAUTH_SECRET }}"            
+            GOOGLE_CLIENT_ID="${{ secrets.GOOGLE_CLIENT_ID }}"
+            GOOGLE_CLIENT_SECRET="${{ secrets.GOOGLE_CLIENT_SECRET }}"            
+            STRIPE_PUBLISHABLE_KEY="${{ secrets.STRIPE_PUBLISHABLE_KEY }}"
+            STRIPE_SECRET_KEY="${{ secrets.STRIPE_SECRET_KEY }}"
+            JWT_SECRET="${{ secrets.EMAIL_JWT_SECRET }}"
+            EMAIL_USER="${{ secrets.EMAIL_USER_KEY }}"
+            EMAIL_PASS="${{ secrets.EMAIL_PASS_KEY }}"
+            EMAIL_SMTP_HOST="${{ secrets.EMAIL_SMTP_HOST }}"
+            EMAIL_SMTP_PORT="${{ secrets.EMAIL_SMTP_PORT }}"
+            EMAIL_SMTP_SECURE="${{ secrets.EMAIL_SMTP_SECURE }}"
+            EMAIL_ZOHO_URL="${{ vars.EMAIL_ZOHO_URL }}"
+            EMAIL_ZOHO_TOKEN="${{ secrets.EMAIL_ZOHO_TOKEN }}"
+            NEXT_PUBLIC_JAAS_APP_ID="${{ secrets.NEXT_PUBLIC_JAAS_APP_ID }}"
+            JAAS_API_KID="${{ secrets.JAAS_API_KID }}"
+            JAAS_API_SECRET="${{ secrets.JAAS_API_SECRET }}"     
+            DO_S3_REGION="${{ vars.DO_S3_REGION }}"
+            DO_S3_ENDPOINT_ORIGIN="${{ vars.DO_S3_ENDPOINT_ORIGIN }}"
+            DO_S3_ENDPOINT_CDN="${{ vars.DO_S3_ENDPOINT_CDN }}"
+            DO_S3_BUCKET_NAME="${{ vars.DO_S3_BUCKET_NAME }}"
+            DO_S3_KEY_NAME="${{ vars.DO_S3_KEY_NAME }}"
+            DO_S3_KEY_ID="${{ secrets.DO_S3_KEY_ID }}"
+            DO_S3_SECRET="${{ secrets.DO_S3_SECRET }}"
+            IMAGE_NAME="${{ env.REGISTRY }}/${{ github.repository }}"
+            IMAGE_TAG="$IMAGE_TAG_SECOND"
+            EOF
+
+            # Ensure proper permissions
+            chmod 600 ${{ env.APP_DIR }}/.env            
+
+            # copy docker compose if they don't exist
+            if [ ! -f ${{ env.APP_DIR }}/docker-compose.yml ]; then
+              echo "${{ secrets.APP_ENCODED_DOCKERCOMPOSE }}" | base64 -d > ${{ env.APP_DIR }}/docker-compose.yml
+            fi
+
+            # copy nginx config if they don't exist
+            if [ ! -f ${{ env.APP_DIR }}/nginx/nginx.conf ]; then
+              echo "${{ secrets.APP_ENCODED_NGINXCONFIG }}" | base64 -d > ${{ env.APP_DIR }}/nginx/nginx.conf
+            fi
+            if [ ! -f ${{ env.APP_DIR }}/nginx/conf/default.conf ]; then
+              echo "${{ secrets.APP_ENCODED_DEFAULTCONFIG }}" | base64 -d > ${{ env.APP_DIR }}/nginx/conf/default.conf
+            fi
+
+
+            # copy scripts if they don't exist
+            if [ ! -f ${{ env.APP_DIR }}/deploy.sh ]; then
+              echo "${{ secrets.APP_ENCODED_DEPLOY_SCRIPT }}" | base64 -d > ${{ env.APP_DIR }}/deploy.sh
+              chmod +x ${{ env.APP_DIR }}/deploy.sh
+            fi
+
+            if [ ! -f ${{ env.APP_DIR }}/rollback.sh ]; then
+              echo "${{ secrets.APP_ENCODED_ROLLBACK_SCRIPT }}" | base64 -d > ${{ env.APP_DIR }}/rollback.sh
+              chmod +x ${{ env.APP_DIR }}/rollback.sh
+            fi
+
+            # Execute deployment            
+            cd ${{ env.APP_DIR }}
+            sed -i 's/\r$//' deploy.sh # Normalize line endings
+            ./deploy.sh
+
+      # - name: Send Slack notification
+      #   uses: slackapi/slack-github-action@v1
+      #   if: always()
+      #   with:
+      #     channel-id: "deployments"
+      #     slack-message: "Production deployment ${{ job.status }}: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  rollback:
+    if: ${{ github.event.inputs.rollback_version }}
+    runs-on: ubuntu-latest
+    environment: prd
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Rollback Production
+        run: |
+          chmod +x ./scripts/rollback.sh
+          ./scripts/rollback.sh prd \
+            ${{ vars.DROPLET_IP }} \
+            "${{ secrets.DEPLOY_SSH_KEY }}" \
+            ${{ github.event.inputs.rollback_version }}
+
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1
+        if: always()
+        with:
+          channel-id: "deployments"
+          slack-message: "Production ROLLBACK to ${{ github.event.inputs.rollback_version }} ${{ job.status }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

@@ -1,0 +1,27 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Edge",
+			"type": "msedge",
+			"request": "launch",
+			"url": "http://localhost:3000/",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"name": "Chrome",
+			"type": "chrome",
+			"request": "launch",
+			"url": "https://localhost:3000/",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "Attach to Node",
+			"port": 9229,
+			"restart": false,
+			"protocol": "inspector"
+		}
+	]
+}

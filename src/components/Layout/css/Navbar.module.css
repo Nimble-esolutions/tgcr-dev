@@ -1,0 +1,50 @@
+.default-btn-nav {
+	border: none;
+	position: relative;
+	display: inline-block;
+	text-align: center;
+	overflow: hidden;
+	z-index: 1;
+	color: #ffffff;
+	background-color: #3877b0;
+	transition: 0.5s;
+	border-radius: 5px;
+	font-weight: 700;
+	font-size: 16px;
+	margin-right: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 11px;
+	padding-bottom: 11px;
+}
+.default-btn-nav span {
+	position: absolute;
+	display: block;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background-color: #221638;
+	transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	border-radius: 5px;
+}
+.default-btn-nav i {
+	position: absolute;
+	left: 30px;
+	top: 10px;
+}
+.default-btn-nav:disabled {
+	cursor: not-allowed;
+}
+.default-btn-nav:disabled span {
+	display: none;
+}
+
+.default-btn-nav:hover {
+	color: #ffffff;
+}
+.default-btn-nav:hover span {
+	width: 225%;
+	height: 562.5px;
+}

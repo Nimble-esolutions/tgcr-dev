@@ -1,0 +1,31 @@
+.cal-instructions-availability {
+	margin-top: 60px;
+	padding-left: 5px;
+	padding-bottom: 10px;
+	position: relative;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.cal-instructions-availability-red {
+	margin-top: 60px;
+	padding-left: 5px;
+	padding-bottom: 10px;
+	position: relative;
+	display: inline-block;
+	font-weight: bold;
+	color: red;
+}
+
+.cal-instructions-header {
+	padding-left: 5px;
+	position: relative;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.cal-instructions-ul {
+	position: relative;
+	display: inline-block;
+	font-weight: normal;
+}
