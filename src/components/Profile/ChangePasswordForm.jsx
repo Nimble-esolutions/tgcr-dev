@@ -7,7 +7,12 @@ import toast from "react-hot-toast";
 import Input from "@/components/FormHelpers/Input";
 import { REGEX_PASSWORD, REGEX_EMAIL } from "@/libs/constants";
 
+<<<<<<< HEAD
 const ChangePasswordForm = ({ lang, user, profilePasswordDict }) => {
+=======
+const ChangePasswordForm = ({ lang, currentUser, profilePasswordDict }) => {
+	// this form is not displayed to the admin user... so no impersonationType used here
+>>>>>>> origin/admin
 	const [isLoading, setIsLoading] = useState(false);
 
 	const {
@@ -22,7 +27,11 @@ const ChangePasswordForm = ({ lang, user, profilePasswordDict }) => {
 	} = useForm({
 		mode: "all",
 		defaultValues: {
+<<<<<<< HEAD
 			email: user.email,
+=======
+			email: currentUser.email,
+>>>>>>> origin/admin
 			currentPassword: "",
 			newPassword: "",
 			confirmPassword: "",

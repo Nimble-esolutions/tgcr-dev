@@ -63,6 +63,7 @@
 }
 
 .availability-non-deletable {
+<<<<<<< HEAD
 	background-color: #ccffcc;
 	border-color: #00ff00;
 }
@@ -70,6 +71,15 @@
 .booking {
 	background-color: #ccccff;
 	border-color: #0000ff;
+=======
+	background-color: #ffcccc;
+	border-color: #ff0000;
+}
+
+.availability-newly-defined {
+	background-color: #ffecb3;
+	border-color: #ffb300;
+>>>>>>> origin/admin
 }
 
 .button-row {

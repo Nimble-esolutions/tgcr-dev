@@ -1,18 +1,36 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { set, useForm } from "react-hook-form";
+=======
+import { useForm } from "react-hook-form";
+>>>>>>> origin/admin
 import axios from "axios";
 import toast from "react-hot-toast";
 import Input from "@/components/FormHelpers/Input";
 import Select from "@/components/FormHelpers/Select";
 import SelectMulti from "@/components/FormHelpers/SelectMulti";
 import TextArea from "@/components/FormHelpers/TextArea";
+<<<<<<< HEAD
 import { LookupTable } from "@/libs/types";
 import { REGEX_LINKEDIN, REGEX_3WORDS, PROFILE_BIO_MINWORDS } from "@/libs/constants";
 import { countStripHtmlWords } from "@/utils/utils";
 
 const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperience }) => {
+=======
+import { LookupTable, ImpersonationType } from "@/libs/types";
+import { REGEX_LINKEDIN, REGEX_3WORDS, PROFILE_BIO_MINWORDS } from "@/libs/constants";
+import { countStripHtmlWords } from "@/utils/utils";
+
+const ExperienceForm = ({
+	lang,
+	currentUser,
+	teachingExperience,
+	impersonationType,
+	profileExperienceDict,
+}) => {
+>>>>>>> origin/admin
 	const [isLoading, setIsLoading] = useState(false);
 
 	const {
@@ -192,7 +210,11 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 				lang,
 			})
 			.then((response) => {
+<<<<<<< HEAD
 				toast.success(profileExperience.success);
+=======
+				toast.success(profileExperienceDict.success);
+>>>>>>> origin/admin
 			})
 			.catch((error) => {
 				toast.error(error.response?.data?.message || error.message);
@@ -204,11 +226,18 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 
 	return (
 		<div className="subnav-form">
+<<<<<<< HEAD
 			<p>{profileExperience.pageTitleH}</p>
+=======
+			{impersonationType === ImpersonationType.User && (
+				<p>{profileExperienceDict.pageTitleH}</p>
+			)}
+>>>>>>> origin/admin
 
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="row">
 					<div className="col-md-6">
+<<<<<<< HEAD
 						<Input
 							id="email"
 							type="email"
@@ -231,6 +260,32 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 								pattern: {
 									value: REGEX_LINKEDIN,
 									message: profileExperience.linkedinE1,
+=======
+						{impersonationType === ImpersonationType.Admin && (
+							<Input
+								id="email"
+								type="email"
+								label={profileExperienceDict.email}
+								disabled={true}
+								register={register}
+								errors={errors}
+								watch={watch}
+								setValue={setValue}
+							/>
+						)}
+						<Input
+							id="linkedin"
+							label={profileExperienceDict.linkedin}
+							helptext={profileExperienceDict.linkedinH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileExperienceDict.mandatoryInput,
+								pattern: {
+									value: REGEX_LINKEDIN,
+									message: profileExperienceDict.linkedinE1,
+>>>>>>> origin/admin
 								},
 							}}
 							watch={watch}
@@ -239,6 +294,7 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 						/>
 						<Input
 							id="bioTitle"
+<<<<<<< HEAD
 							label={profileExperience.profileTitle}
 							helptext={profileExperience.profileTitleH}
 							disabled={isLoading}
@@ -249,6 +305,18 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 								pattern: {
 									value: REGEX_3WORDS,
 									message: profileExperience.profileTitleE1,
+=======
+							label={profileExperienceDict.profileTitle}
+							helptext={profileExperienceDict.profileTitleH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileExperienceDict.mandatoryInput,
+								pattern: {
+									value: REGEX_3WORDS,
+									message: profileExperienceDict.profileTitleE1,
+>>>>>>> origin/admin
 								},
 							}}
 							watch={watch}
@@ -256,15 +324,25 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 						/>
 						<TextArea
 							id="bio"
+<<<<<<< HEAD
 							label={profileExperience.introduction}
 							helptext={profileExperience.introductionH}
 							disabled={isLoading}
+=======
+							label={profileExperienceDict.introduction}
+							helptext={profileExperienceDict.introductionH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							validationRules={{
 								validate: (value) =>
 									countStripHtmlWords(value) >= PROFILE_BIO_MINWORDS ||
+<<<<<<< HEAD
 									profileExperience.introductionE1.replace(
+=======
+									profileExperienceDict.introductionE1.replace(
+>>>>>>> origin/admin
 										"{number}",
 										PROFILE_BIO_MINWORDS
 									),
@@ -274,6 +352,7 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 						/>
 						<Select
 							id="nativeLanguage"
+<<<<<<< HEAD
 							label={profileExperience.nativeLanguage}
 							helptext={profileExperience.nativeLanguageH}
 							disabled={isLoading}
@@ -281,6 +360,15 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 							errors={errors}
 							validationRules={{
 								required: profileExperience.mandatoryInput,
+=======
+							label={profileExperienceDict.nativeLanguage}
+							helptext={profileExperienceDict.nativeLanguageH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileExperienceDict.mandatoryInput,
+>>>>>>> origin/admin
 							}}
 							required={true}
 							displayOptions={instructionMediums} // same source as instruction mediums
@@ -291,6 +379,7 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 					<div className="col-md-6">
 						<Select
 							id="teacherEducationalQualificationId"
+<<<<<<< HEAD
 							label={profileExperience.educationalQualification}
 							helptext={profileExperience.educationalQualificationH}
 							disabled={isLoading}
@@ -298,6 +387,15 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 							errors={errors}
 							validationRules={{
 								required: profileExperience.mandatoryInput,
+=======
+							label={profileExperienceDict.educationalQualification}
+							helptext={profileExperienceDict.educationalQualificationH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileExperienceDict.mandatoryInput,
+>>>>>>> origin/admin
 							}}
 							required={true}
 							displayOptions={educationalQualifications}
@@ -306,6 +404,7 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 						/>
 						<Select
 							id="teacherExperienceLevelId"
+<<<<<<< HEAD
 							label={profileExperience.teachingExperience}
 							helptext={profileExperience.teachingExperienceH}
 							disabled={isLoading}
@@ -313,6 +412,15 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 							errors={errors}
 							validationRules={{
 								required: profileExperience.mandatoryInput,
+=======
+							label={profileExperienceDict.teachingExperience}
+							helptext={profileExperienceDict.teachingExperienceH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileExperienceDict.mandatoryInput,
+>>>>>>> origin/admin
 							}}
 							required={true}
 							displayOptions={experienceLevels}
@@ -321,14 +429,24 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 						/>
 						<SelectMulti
 							id="teacherEducationalBoardList"
+<<<<<<< HEAD
 							label={profileExperience.educationalBoard}
 							helptext={profileExperience.educationalBoardH}
 							disabled={isLoading}
+=======
+							label={profileExperienceDict.educationalBoard}
+							helptext={profileExperienceDict.educationalBoardH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							displayOptions={educationalBoards}
 							validationRules={{
+<<<<<<< HEAD
 								required: profileExperience.educationalBoardE1,
+=======
+								required: profileExperienceDict.educationalBoardE1,
+>>>>>>> origin/admin
 							}}
 							required={true}
 							watch={watch}
@@ -336,28 +454,48 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 						/>
 						<SelectMulti
 							id="subjectList"
+<<<<<<< HEAD
 							label={profileExperience.subjects}
 							helptext={profileExperience.subjectsH}
 							disabled={isLoading}
+=======
+							label={profileExperienceDict.subjects}
+							helptext={profileExperienceDict.subjectsH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							displayOptions={subjects}
 							validationRules={{
+<<<<<<< HEAD
 								required: profileExperience.subjectsE1,
+=======
+								required: profileExperienceDict.subjectsE1,
+>>>>>>> origin/admin
 							}}
 							watch={watch}
 							setValue={setValue}
 						/>
 						<SelectMulti
 							id="instructionMediumList"
+<<<<<<< HEAD
 							label={profileExperience.instruction}
 							helptext={profileExperience.instructionH}
 							disabled={isLoading}
+=======
+							label={profileExperienceDict.instruction}
+							helptext={profileExperienceDict.instructionH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							displayOptions={instructionMediums}
 							validationRules={{
+<<<<<<< HEAD
 								required: profileExperience.instructionE1,
+=======
+								required: profileExperienceDict.instructionE1,
+>>>>>>> origin/admin
 							}}
 							watch={watch}
 							setValue={setValue}
@@ -365,9 +503,19 @@ const ExperienceForm = ({ lang, currentUser, teachingExperience, profileExperien
 					</div>
 				</div>
 				<div className="col-12">
+<<<<<<< HEAD
 					<button type="submit" disabled={isLoading}>
 						{isLoading ? profileExperience.pleaseWait : profileExperience.updateBtn}
 					</button>
+=======
+					{impersonationType === ImpersonationType.User && (
+						<button type="submit" disabled={isLoading}>
+							{isLoading
+								? profileExperienceDict.pleaseWait
+								: profileExperienceDict.updateBtn}
+						</button>
+					)}
+>>>>>>> origin/admin
 				</div>
 			</form>
 		</div>

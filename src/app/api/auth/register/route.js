@@ -5,7 +5,11 @@ import { Role } from "@prisma/client";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { REGEX_PASSWORD, REGEX_EMAIL } from "@/libs/constants";
 import { generateToken } from "@/utils/token";
+<<<<<<< HEAD
 import { sendVerifyEmailToken } from "@/utils/mailer";
+=======
+import { sendVerifyEmailToken } from "@/utils/mailerZOHO";
+>>>>>>> origin/admin
 import { apiResponse, APIStatus } from "@/utils/apiResponse";
 
 export async function POST(request) {

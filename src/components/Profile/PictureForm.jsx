@@ -8,9 +8,15 @@ import toast from "react-hot-toast";
 import { set, useForm } from "react-hook-form";
 import Input from "@/components/FormHelpers/Input";
 import { FileUpload } from "@/components/FormHelpers/FileUpload";
+<<<<<<< HEAD
 import { UploadType } from "@/libs/types";
 
 const PictureForm = ({ lang, currentUser, profilePictureDict }) => {
+=======
+import { UploadType, ImpersonationType } from "@/libs/types";
+
+const PictureForm = ({ lang, currentUser, impersonationType, profilePictureDict }) => {
+>>>>>>> origin/admin
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const [preview, setPreview] = useState(null);
@@ -91,6 +97,7 @@ const PictureForm = ({ lang, currentUser, profilePictureDict }) => {
 	};
 	return (
 		<div className="subnav-form">
+<<<<<<< HEAD
 			<p>{profilePictureDict.pageTitleH}</p>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="row">
@@ -105,6 +112,24 @@ const PictureForm = ({ lang, currentUser, profilePictureDict }) => {
 							watch={watch}
 							setValue={setValue}
 						/>
+=======
+			{impersonationType === ImpersonationType.User && <p>{profilePictureDict.pageTitleH}</p>}
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<div className="row">
+					<div className="col-md-6">
+						{impersonationType === ImpersonationType.Admin && (
+							<Input
+								id="email"
+								type="email"
+								label={profilePictureDict.email}
+								disabled={true}
+								register={register}
+								errors={errors}
+								watch={watch}
+								setValue={setValue}
+							/>
+						)}
+>>>>>>> origin/admin
 					</div>
 				</div>
 				<div className="row">
@@ -121,12 +146,24 @@ const PictureForm = ({ lang, currentUser, profilePictureDict }) => {
 						</span>
 					</div>
 					<div className="col-2" style={{ textAlign: "center" }}>
+<<<<<<< HEAD
 						<FileUpload
 							onChange={onImageChange}
 							label={profilePictureDict.uploadPicH}
 							invalidSizeLabel={profilePictureDict.selectedPictureE2}
 							uploadType={UploadType.Image}
 						/>
+=======
+						{impersonationType === ImpersonationType.User && (
+							// FileUpload is only displayed to the user; and not to the admin
+							<FileUpload
+								onChange={onImageChange}
+								label={profilePictureDict.uploadPicH}
+								invalidSizeLabel={profilePictureDict.selectedPictureE2}
+								uploadType={UploadType.Image}
+							/>
+						)}
+>>>>>>> origin/admin
 					</div>
 					<div className="col-2" style={{ textAlign: "center" }}>
 						{preview && (
@@ -147,11 +184,21 @@ const PictureForm = ({ lang, currentUser, profilePictureDict }) => {
 				</div>
 				<div className="row">
 					<div className="col-12">
+<<<<<<< HEAD
 						<button type="submit" disabled={isLoading || !preview}>
 							{isLoading
 								? profilePictureDict.pleaseWait
 								: profilePictureDict.uploadPicBtn}
 						</button>
+=======
+						{impersonationType === ImpersonationType.User && (
+							<button type="submit" disabled={isLoading || !preview}>
+								{isLoading
+									? profilePictureDict.pleaseWait
+									: profilePictureDict.uploadPicBtn}
+							</button>
+						)}
+>>>>>>> origin/admin
 					</div>
 				</div>
 			</form>

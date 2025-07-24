@@ -29,11 +29,16 @@ const StepsToLearn = ({ currentUser, lang, stepsToLearnDict }) => {
 						))}
 					</div>
 				</div>
+<<<<<<< HEAD
 				<div className="shape1">
 					<Image src="/images/shape1.png" width={118} height={59} alt="image" />
 				</div>
 				<div className="shape4">
 					<Image src="/images/shape4.png" width={62} height={62} alt="image" />
+=======
+				<div className={styles["shape3"]}>
+					<Image src="/images/shape3.png" width={118} height={59} alt="image" />
+>>>>>>> origin/admin
 				</div>
 			</div>
 		</>

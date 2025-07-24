@@ -39,9 +39,13 @@ const CategorySelect = ({ label, value, onChange }) => {
 		fetchCategories();
 	}, []);
 
+<<<<<<< HEAD
 	const selectedOption = categories.find(
 		(category) => category.value === value
 	);
+=======
+	const selectedOption = categories.find((category) => category.value === value);
+>>>>>>> origin/admin
 
 	return (
 		<div className="form-gorup">

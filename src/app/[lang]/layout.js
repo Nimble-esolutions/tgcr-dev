@@ -71,7 +71,11 @@ export default async function RootLayout({ children, params }) {
 	const currentUser = await getCurrentUser();
 
 	return (
+<<<<<<< HEAD
 		<html lang={lang}>
+=======
+		<html lang={lang} suppressHydrationWarning={true}>
+>>>>>>> origin/admin
 			<head>
 				<meta name="description" content={metadata.description} />
 				<meta name="keywords" content={metadata.keywords.join(", ")} />

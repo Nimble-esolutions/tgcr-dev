@@ -6,9 +6,15 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Input from "@/components/FormHelpers/Input";
 import Select from "@/components/FormHelpers/Select";
+<<<<<<< HEAD
 import { LookupTable } from "@/libs/types";
 
 const LocationForm = ({ lang, currentUser, profileLocation }) => {
+=======
+import { LookupTable, ImpersonationType } from "@/libs/types";
+
+const LocationForm = ({ lang, currentUser, impersonationType, profileLocationDict }) => {
+>>>>>>> origin/admin
 	const [isLoading, setIsLoading] = useState(false);
 
 	const {
@@ -89,7 +95,11 @@ const LocationForm = ({ lang, currentUser, profileLocation }) => {
 				lang,
 			})
 			.then((response) => {
+<<<<<<< HEAD
 				toast.success(profileLocation.success);
+=======
+				toast.success(profileLocationDict.success);
+>>>>>>> origin/admin
 			})
 			.catch((error) => {
 				toast.error(error.response?.data?.message || error.message);
@@ -101,6 +111,7 @@ const LocationForm = ({ lang, currentUser, profileLocation }) => {
 
 	return (
 		<div className="subnav-form">
+<<<<<<< HEAD
 			<p>{profileLocation.pageTitleH}</p>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -120,11 +131,40 @@ const LocationForm = ({ lang, currentUser, profileLocation }) => {
 						label={profileLocation.country}
 						helptext={profileLocation.countryH}
 						disabled={isLoading}
+=======
+			{impersonationType === ImpersonationType.User && (
+				<p>{profileLocationDict.pageTitleH}</p>
+			)}
+
+			<form onSubmit={handleSubmit(onSubmit)}>
+				{impersonationType === ImpersonationType.Admin && (
+					<Input
+						id="email"
+						type="email"
+						label={profileLocationDict.email}
+						disabled={true}
+						register={register}
+						errors={errors}
+						watch={watch}
+						setValue={setValue}
+					/>
+				)}
+				{currentUser.isInstructor && (
+					<Select
+						id="countryId"
+						label={profileLocationDict.country}
+						helptext={profileLocationDict.countryH}
+						disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 						register={register}
 						errors={errors}
 						displayOptions={countries}
 						validationRules={{
+<<<<<<< HEAD
 							required: profileLocation.mandatoryInput,
+=======
+							required: profileLocationDict.mandatoryInput,
+>>>>>>> origin/admin
 						}}
 						required={true}
 						watch={watch}
@@ -133,22 +173,40 @@ const LocationForm = ({ lang, currentUser, profileLocation }) => {
 				)}
 				<Select
 					id="timezoneId"
+<<<<<<< HEAD
 					label={profileLocation.timezone}
 					helptext={profileLocation.timezoneH}
 					disabled={isLoading}
+=======
+					label={profileLocationDict.timezone}
+					helptext={profileLocationDict.timezoneH}
+					disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 					register={register}
 					errors={errors}
 					displayOptions={timezones}
 					validationRules={{
+<<<<<<< HEAD
 						required: profileLocation.mandatoryInput,
+=======
+						required: profileLocationDict.mandatoryInput,
+>>>>>>> origin/admin
 					}}
 					required={true}
 					watch={watch}
 					setValue={setValue}
 				/>
+<<<<<<< HEAD
 				<button type="submit" disabled={isLoading}>
 					{isLoading ? profileLocation.pleaseWait : profileLocation.updateBtn}
 				</button>
+=======
+				{impersonationType === ImpersonationType.User && (
+					<button type="submit" disabled={isLoading}>
+						{isLoading ? profileLocationDict.pleaseWait : profileLocationDict.updateBtn}
+					</button>
+				)}
+>>>>>>> origin/admin
 			</form>
 		</div>
 	);

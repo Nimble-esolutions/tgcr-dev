@@ -44,7 +44,11 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=dev,enable=${{ github.ref == 'refs/heads/dev' }}
+<<<<<<< HEAD
             type=raw,value=${{ env.IMAGE_TAG }}            
+=======
+            type=raw,value=${{ env.IMAGE_TAG }}
+>>>>>>> origin/admin
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -80,6 +84,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+<<<<<<< HEAD
+=======
+      - run: echo "Image tag is ${{ needs.build-and-push.outputs.image_tag }}"
+
+>>>>>>> origin/admin
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -127,6 +136,10 @@ jobs:
             IMAGE_TAG_SECOND=$(echo "${{ needs.build-and-push.outputs.image_tag }}" | sed -n '2p')
 
             cat > ${{ env.APP_DIR }}/.env <<EOF
+<<<<<<< HEAD
+=======
+            APP_NAME=${{ vars.APP_NAME }}
+>>>>>>> origin/admin
             APP_DIR="${{ env.APP_DIR }}"
             ADMIN_EMAIL="${{ vars.ADMIN_EMAIL }}"
             APP_DOMAIN="${{ vars.APP_DOMAIN }}"
@@ -145,6 +158,11 @@ jobs:
             EMAIL_SMTP_HOST="${{ secrets.EMAIL_SMTP_HOST }}"
             EMAIL_SMTP_PORT="${{ secrets.EMAIL_SMTP_PORT }}"
             EMAIL_SMTP_SECURE="${{ secrets.EMAIL_SMTP_SECURE }}"
+<<<<<<< HEAD
+=======
+            EMAIL_ZOHO_URL="${{ vars.EMAIL_ZOHO_URL }}"
+            EMAIL_ZOHO_TOKEN="${{ secrets.EMAIL_ZOHO_TOKEN }}"
+>>>>>>> origin/admin
             NEXT_PUBLIC_JAAS_APP_ID="${{ secrets.NEXT_PUBLIC_JAAS_APP_ID }}"
             JAAS_API_KID="${{ secrets.JAAS_API_KID }}"
             JAAS_API_SECRET="${{ secrets.JAAS_API_SECRET }}"

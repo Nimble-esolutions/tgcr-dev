@@ -7,10 +7,23 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Input from "@/components/FormHelpers/Input";
 import Checkbox from "../FormHelpers/Checkbox";
+<<<<<<< HEAD
 import { LookupTable } from "@/libs/types";
 import { PROFILE_MAX_PRICE, REGEX_CURRENCY } from "@/libs/constants";
 
 const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) => {
+=======
+import { LookupTable, ImpersonationType } from "@/libs/types";
+import { PROFILE_MAX_PRICE, REGEX_CURRENCY } from "@/libs/constants";
+
+const PricingForm = ({
+	lang,
+	currentUser,
+	currentUserPricing,
+	impersonationType,
+	profilePricingDict,
+}) => {
+>>>>>>> origin/admin
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	// classLevels contains all attributes required to build the view on the screen
@@ -155,7 +168,11 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 	const onSubmit = async (data) => {
 		if (classLevels.filter((item) => item.selected === true).length === 0) {
 			// just check if there is a record to send to the DB or not
+<<<<<<< HEAD
 			toast.error(profilePricing.pricePerLessonE4);
+=======
+			toast.error(profilePricingDict.pricePerLessonE4);
+>>>>>>> origin/admin
 			return;
 		}
 		if (
@@ -164,7 +181,11 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 			).length > 0
 		) {
 			// some of the class levels are selected but have invalid pricing
+<<<<<<< HEAD
 			toast.error(profilePricing.pricePerLessonE5);
+=======
+			toast.error(profilePricingDict.pricePerLessonE5);
+>>>>>>> origin/admin
 			return;
 		}
 
@@ -177,7 +198,11 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 				classLevels,
 			})
 			.then((response) => {
+<<<<<<< HEAD
 				toast.success(profilePricing.success);
+=======
+				toast.success(profilePricingDict.success);
+>>>>>>> origin/admin
 				router.refresh();
 			})
 			.catch((error) => {
@@ -190,11 +215,16 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 
 	return (
 		<div className="subnav-form">
+<<<<<<< HEAD
 			<p>{profilePricing.pageTitleH}</p>
+=======
+			{impersonationType === ImpersonationType.User && <p>{profilePricingDict.pageTitleH}</p>}
+>>>>>>> origin/admin
 
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="row">
 					<div className="col-md-6">
+<<<<<<< HEAD
 						<Input
 							id="email"
 							type="email"
@@ -205,6 +235,21 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 							watch={watch}
 							setValue={setValue}
 						/>
+=======
+						{impersonationType === ImpersonationType.Admin && (
+							<Input
+								id="email"
+								type="email"
+								label={profilePricingDict.email}
+								disabled={true}
+								register={register}
+								errors={errors}
+								watch={watch}
+								setValue={setValue}
+							/>
+						)}
+
+>>>>>>> origin/admin
 						{/* header row */}
 						<div
 							style={{
@@ -216,8 +261,15 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 								marginBottom: "10px",
 							}}
 						>
+<<<<<<< HEAD
 							<label className="input-label">{profilePricing.grade}</label>
 							<label className="input-label">{profilePricing.pricePerLesson}</label>
+=======
+							<label className="input-label">{profilePricingDict.grade}</label>
+							<label className="input-label">
+								{profilePricingDict.pricePerLesson}
+							</label>
+>>>>>>> origin/admin
 						</div>
 						{/* details */}
 						{classLevels.map((clRow) => (
@@ -235,7 +287,13 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 									id={`checkbox-${clRow.index}`}
 									label={clRow.label}
 									helptext={""}
+<<<<<<< HEAD
 									disabled={isLoading}
+=======
+									disabled={
+										impersonationType === ImpersonationType.Admin || isLoading
+									}
+>>>>>>> origin/admin
 									register={register}
 									errors={errors}
 									validationRules={{}}
@@ -251,17 +309,32 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 									labelShow={false}
 									type="text"
 									helptext={"0.00"}
+<<<<<<< HEAD
 									disabled={isLoading ? true : !clRow.selected}
+=======
+									disabled={
+										impersonationType === ImpersonationType.Admin ||
+										(isLoading ? true : !clRow.selected)
+									}
+>>>>>>> origin/admin
 									register={register}
 									errors={errors}
 									validationRules={{
 										pattern: {
 											value: REGEX_CURRENCY,
+<<<<<<< HEAD
 											message: profilePricing.pricePerLessonE1,
 										},
 										max: {
 											value: PROFILE_MAX_PRICE,
 											message: profilePricing.pricePerLessonE2,
+=======
+											message: profilePricingDict.pricePerLessonE1,
+										},
+										max: {
+											value: PROFILE_MAX_PRICE,
+											message: profilePricingDict.pricePerLessonE2,
+>>>>>>> origin/admin
 										},
 									}}
 									watch={watch}
@@ -276,9 +349,19 @@ const PricingForm = ({ lang, currentUser, currentUserPricing, profilePricing }) 
 					<div className="col-md-6"></div>
 				</div>
 				<div className="col-12">
+<<<<<<< HEAD
 					<button type="submit" disabled={isLoading}>
 						{isLoading ? profilePricing.pleaseWait : profilePricing.updateBtn}
 					</button>
+=======
+					{impersonationType === ImpersonationType.User && (
+						<button type="submit" disabled={isLoading}>
+							{isLoading
+								? profilePricingDict.pleaseWait
+								: profilePricingDict.updateBtn}
+						</button>
+					)}
+>>>>>>> origin/admin
 				</div>
 			</form>
 		</div>

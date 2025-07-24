@@ -10,8 +10,14 @@ import ContactNumber from "@/components/FormHelpers/ContactNumber";
 import { REGEX_PHONE } from "@/libs/constants";
 import { Gender } from "@prisma/client";
 import { Role } from "@prisma/client";
+<<<<<<< HEAD
 
 const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
+=======
+import { ImpersonationType } from "@/libs/types";
+
+const PersonalProfileForm = ({ lang, currentUser, impersonationType, profilePersonalDict }) => {
+>>>>>>> origin/admin
 	const [isLoading, setIsLoading] = useState(false);
 
 	const {
@@ -85,7 +91,13 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 
 	return (
 		<div className="subnav-form">
+<<<<<<< HEAD
 			<p>{profilePersonalDict.pageTitleH}</p>
+=======
+			{impersonationType === ImpersonationType.User && (
+				<p>{profilePersonalDict.pageTitleH}</p>
+			)}
+>>>>>>> origin/admin
 
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="row">
@@ -104,7 +116,11 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 							id="firstName"
 							label={profilePersonalDict.firstName}
 							helptext={profilePersonalDict.firstNameH}
+<<<<<<< HEAD
 							disabled={isLoading}
+=======
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							required={true}
@@ -123,7 +139,11 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 							id="middleName"
 							label={profilePersonalDict.middleName}
 							helptext={profilePersonalDict.middleNameH}
+<<<<<<< HEAD
 							disabled={isLoading}
+=======
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							validationRules={{}}
@@ -134,7 +154,11 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 							id="lastName"
 							label={profilePersonalDict.lastName}
 							helptext={profilePersonalDict.lastNameH}
+<<<<<<< HEAD
 							disabled={isLoading}
+=======
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							required={true}
@@ -155,7 +179,11 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 							id="name"
 							label={profilePersonalDict.displayName}
 							helptext={profilePersonalDict.displayNameH}
+<<<<<<< HEAD
 							disabled={isLoading}
+=======
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							required={true}
@@ -173,7 +201,11 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 							id="gender"
 							label={profilePersonalDict.gender}
 							helptext={profilePersonalDict.genderH}
+<<<<<<< HEAD
 							disabled={isLoading}
+=======
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							displayOptions={genderOptions}
@@ -189,7 +221,11 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 							label={profilePersonalDict.dob}
 							helptext={profilePersonalDict.dobH}
 							type="date"
+<<<<<<< HEAD
 							disabled={isLoading}
+=======
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							required={true}
@@ -221,6 +257,7 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 							watch={watch}
 							setValue={setValue}
 						/>
+<<<<<<< HEAD
 						{/* <GenericSelect
 							id="gender"
 							label={profilePersonalDict.gender}
@@ -253,6 +290,12 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 						<ContactNumber
 							idCC="phoneCountryId"
 							idCN="phone"
+=======
+						<ContactNumber
+							idCC="phoneCountryId"
+							idCN="phone"
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							label={profilePersonalDict.phone}
 							helptextCC={profilePersonalDict.countryCodeH}
 							helptextCN={profilePersonalDict.phoneH}
@@ -279,11 +322,21 @@ const PersonalProfileForm = ({ lang, currentUser, profilePersonalDict }) => {
 						/>
 					</div>
 					<div className="col-12">
+<<<<<<< HEAD
 						<button type="submit" disabled={isLoading}>
 							{isLoading
 								? profilePersonalDict.pleaseWait
 								: profilePersonalDict.updateBtn}
 						</button>
+=======
+						{impersonationType === ImpersonationType.User && (
+							<button type="submit" disabled={isLoading}>
+								{isLoading
+									? profilePersonalDict.pleaseWait
+									: profilePersonalDict.updateBtn}
+							</button>
+						)}
+>>>>>>> origin/admin
 					</div>
 				</div>
 			</form>

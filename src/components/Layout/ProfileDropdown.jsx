@@ -5,7 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { Role } from "@prisma/client";
+<<<<<<< HEAD
 import { baseUrl } from "@/libs/constants";
+=======
+>>>>>>> origin/admin
 
 const ProfileDropdown = ({ currentUser, lang, profileDropdown }) => {
 	const isAdmin = currentUser?.role === Role.Admin;
@@ -138,7 +141,11 @@ const ProfileDropdown = ({ currentUser, lang, profileDropdown }) => {
 							type="submit"
 							onClick={() =>
 								signOut({
+<<<<<<< HEAD
 									callbackUrl: `${baseUrl}/${lang}/`,
+=======
+									callbackUrl: `${window.location.origin}`,
+>>>>>>> origin/admin
 									redirect: true,
 								})
 							}

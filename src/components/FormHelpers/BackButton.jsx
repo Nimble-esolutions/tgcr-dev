@@ -4,11 +4,24 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import styles from "./css/BackButton.module.css";
 
+<<<<<<< HEAD
 const BackButton = () => {
 	const router = useRouter();
 
 	const handleBackClick = () => {
 		router.back(); // Navigates to the previous page
+=======
+const BackButton = ({ href }) => {
+	// If href is provided, then it navigates to that URL instead of going back
+	const router = useRouter();
+
+	const handleBackClick = () => {
+		if (href) {
+			router.push(href);
+		} else {
+			router.back(); // Navigates to the previous page
+		}
+>>>>>>> origin/admin
 	};
 
 	return (

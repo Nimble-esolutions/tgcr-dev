@@ -1,8 +1,14 @@
 import { redirect } from "next/navigation";
 import { Dashboard } from "@/components/Layout/Dashboard";
 import { getCurrentUser } from "@/actions/getCurrentUser";
+<<<<<<< HEAD
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import AdminSideNav from "@/components/Layout/AdminSideNav";
+=======
+import { getDashboardStats } from "@/actions/admin/getDashboardStats";
+import { getDictionary } from "@/app/[lang]/dictionaries";
+import { AdminLayout } from "../adminLayout";
+>>>>>>> origin/admin
 import { Role } from "@prisma/client";
 
 export async function generateMetadata({ params }) {
@@ -83,6 +89,7 @@ const page = async ({ params }) => {
 			</>
 		);
 	} else {
+<<<<<<< HEAD
 		// profile is valid; show the statistics
 		return (
 			<>
@@ -160,6 +167,44 @@ const page = async ({ params }) => {
 						</div>
 					</div>
 				</div>
+=======
+		// profile is valid; show the statistics in AdminLayout (with side navigation)
+		const dashboardStats = await getDashboardStats();
+
+		const adminDashboardCardList = [
+			{
+				icon: "bx bxs-user-account",
+				label: dict.adminDashboard.students,
+				url: `/${lang}/admin/students`,
+				valid: null,
+				message: dict.adminDashboard.studentsH
+					.replace("{students}", dashboardStats.students.toString())
+					.replace("{astudents}", dashboardStats.activeStudents.toString())
+					.replace("{vstudents}", dashboardStats.validStudents.toString()),
+			},
+			{
+				icon: "bx bxs-user-account",
+				label: dict.adminDashboard.teachers,
+				url: `/${lang}/admin/teachers`,
+				valid: null,
+				message: dict.adminDashboard.teachersH
+					.replace("{teachers}", dashboardStats.teachers.toString())
+					.replace("{ateachers}", dashboardStats.activeTeachers.toString())
+					.replace("{vteachers}", dashboardStats.validTeachers.toString()),
+			},
+		];
+
+		return (
+			<>
+				<AdminLayout lang={lang}>
+					<Dashboard
+						lang={lang}
+						currentUser={currentUser}
+						dashboardCardList={adminDashboardCardList}
+						dashboardDict={dict.adminDashboard}
+					/>
+				</AdminLayout>
+>>>>>>> origin/admin
 			</>
 		);
 	}

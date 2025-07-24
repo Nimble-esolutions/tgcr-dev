@@ -514,6 +514,7 @@
 	.single-advisor-item .advisor-content span {
 		font-size: 13.5px;
 	}
+<<<<<<< HEAD
 	.feedback-content {
 		text-align: center;
 	}
@@ -526,6 +527,8 @@
 	.feedback-content .feedback-slides {
 		margin-bottom: 20px;
 	}
+=======
+>>>>>>> origin/admin
 	.single-feedback-item {
 		text-align: left;
 		padding: 25px;
@@ -547,6 +550,7 @@
 	.feedback-info p {
 		margin-top: 0;
 	}
+<<<<<<< HEAD
 	.single-testimonials-item {
 		padding-left: 0;
 	}
@@ -569,6 +573,8 @@
 		font-size: 16px;
 		line-height: 1.8;
 	}
+=======
+>>>>>>> origin/admin
 	.single-feedback-box {
 		padding: 25px;
 	}
@@ -577,6 +583,7 @@
 		bottom: 50px;
 		font-size: 70px;
 	}
+<<<<<<< HEAD
 	.funfacts-list .single-funfacts-box {
 		margin-bottom: 0 !important;
 		margin-top: 30px !important;
@@ -620,6 +627,18 @@
 	.single-funfacts-item p {
 		font-size: 13px;
 	}
+=======
+	.funfacts-area .col-lg-3 {
+		border-right: none;
+	}
+	.funfacts-area .col-lg-3:first-child {
+		padding-top: 60px;
+	}
+	.funfacts-area .col-lg-3:last-child {
+		border-bottom: none;
+		padding-bottom: 60px;
+	}
+>>>>>>> origin/admin
 	.funfacts-area-two {
 		border: none;
 	}
@@ -815,6 +834,7 @@
 		margin-top: 50px;
 		font-size: 26px;
 	}
+<<<<<<< HEAD
 	.single-testimonials-box {
 		max-width: 100%;
 		padding-right: 0;
@@ -833,6 +853,8 @@
 		bottom: -15px;
 		font-size: 100px;
 	}
+=======
+>>>>>>> origin/admin
 	.our-story-title h3 {
 		font-size: 18px;
 		padding-left: 22px;
@@ -2223,6 +2245,7 @@
 	.subscribe-image {
 		margin-bottom: 35px;
 	}
+<<<<<<< HEAD
 	.health-coaching-banner-area {
 		margin-bottom: -25px;
 		padding-top: 80px;
@@ -2282,6 +2305,8 @@
 	.health-coaching-shape7 {
 		display: none;
 	}
+=======
+>>>>>>> origin/admin
 	.single-lifestyle-box {
 		padding: 25px 15px;
 	}
@@ -2324,6 +2349,7 @@
 		font-size: 45px;
 		margin-bottom: 18px;
 	}
+<<<<<<< HEAD
 	.single-health-services-box {
 		text-align: center;
 		padding-left: 0;
@@ -2342,6 +2368,8 @@
 	.single-health-services-box h3 {
 		font-size: 18px;
 	}
+=======
+>>>>>>> origin/admin
 	.experience-content .shape {
 		display: none;
 	}
@@ -2379,6 +2407,7 @@
 		margin-bottom: 0;
 		margin-top: 30px;
 	}
+<<<<<<< HEAD
 	.health-coaching-feedback-image {
 		margin-right: 0;
 	}
@@ -2393,6 +2422,8 @@
 		margin-bottom: 40px;
 		font-size: 25px;
 	}
+=======
+>>>>>>> origin/admin
 	.object1,
 	.object2,
 	.object3,
@@ -2428,6 +2459,7 @@
 	.default-btn-style-two::before {
 		margin: 2px;
 	}
+<<<<<<< HEAD
 	.kindergarten-main-banner {
 		padding-top: 100px;
 	}
@@ -2506,6 +2538,8 @@
 		text-align: center;
 		margin-top: 20px;
 	}
+=======
+>>>>>>> origin/admin
 	.about-content .about-list {
 		text-align: left;
 	}
@@ -2519,6 +2553,7 @@
 		line-height: 25px;
 		font-size: 18px;
 	}
+<<<<<<< HEAD
 	.kindergarten-services-area {
 		padding-bottom: 60px;
 	}
@@ -2598,6 +2633,8 @@
 	.single-kindergarten-feedback-item .client-info span {
 		color: #000000;
 	}
+=======
+>>>>>>> origin/admin
 	.single-selected-ages-box h3 {
 		padding-top: 9px;
 		font-size: 20px;
@@ -2709,10 +2746,17 @@
 	.banner-section .container-fluid {
 		max-width: 540px;
 	}
+<<<<<<< HEAD
 	.funfacts-area .col-lg-3:nth-child(2) .single-funfacts-item {
 		padding-top: 60px;
 	}
 	.funfacts-area .col-lg-3:nth-child(3) .single-funfacts-item {
+=======
+	.funfacts-area .col-lg-3:nth-child(2) {
+		padding-top: 60px;
+	}
+	.funfacts-area .col-lg-3:nth-child(3) {
+>>>>>>> origin/admin
 		border-bottom: none;
 	}
 	.funfacts-area-two .col-lg-3:nth-child(2) .single-funfacts {
@@ -2760,6 +2804,7 @@
 	.yoga-main-banner .container-fluid {
 		max-width: 540px;
 	}
+<<<<<<< HEAD
 	.health-coaching-banner-area {
 		margin-bottom: -35px;
 	}
@@ -2789,6 +2834,8 @@
 		text-align: right;
 		margin-top: 0;
 	}
+=======
+>>>>>>> origin/admin
 	.about-content .about-list li {
 		flex: 0 0 33.333333%;
 		max-width: 33.333333%;
@@ -3128,6 +3175,7 @@
 	.single-box-item h3 {
 		font-size: 19px;
 	}
+<<<<<<< HEAD
 	.feedback-content {
 		text-align: center;
 	}
@@ -3187,6 +3235,14 @@
 		font-size: 15px;
 		text-transform: capitalize;
 	}
+=======
+	.single-feedback-item {
+		text-align: left;
+	}
+	.single-feedback-box {
+		padding: 25px;
+	}
+>>>>>>> origin/admin
 	.single-funfacts {
 		padding-top: 80px;
 		padding-bottom: 80px;
@@ -3420,6 +3476,7 @@
 	.single-products-box .products-content .price {
 		font-size: 15px;
 	}
+<<<<<<< HEAD
 	.single-testimonials-box {
 		max-width: 645px;
 		padding-right: 50px;
@@ -3427,6 +3484,8 @@
 	.single-testimonials-box p {
 		font-size: 18px;
 	}
+=======
+>>>>>>> origin/admin
 	.our-story-title h3 {
 		padding-left: 28px;
 		font-size: 22px;
@@ -3877,6 +3936,7 @@
 	.subscribe-image {
 		margin-bottom: 35px;
 	}
+<<<<<<< HEAD
 	.health-coaching-banner-area {
 		margin-bottom: -40px;
 		padding-top: 100px;
@@ -3934,6 +3994,8 @@
 	.health-coaching-shape7 {
 		display: none;
 	}
+=======
+>>>>>>> origin/admin
 	.single-lifestyle-box h3 {
 		font-size: 19px;
 	}
@@ -3973,6 +4035,7 @@
 	.single-program-box h3 {
 		font-size: 19px;
 	}
+<<<<<<< HEAD
 	.single-health-services-box {
 		text-align: center;
 		padding-left: 0;
@@ -3987,6 +4050,8 @@
 	.single-health-services-box h3 {
 		font-size: 19px;
 	}
+=======
+>>>>>>> origin/admin
 	.experience-img {
 		margin-top: 30px;
 		margin-left: 0;
@@ -4020,6 +4085,7 @@
 		margin-bottom: 0;
 		margin-top: 30px;
 	}
+<<<<<<< HEAD
 	.health-coaching-feedback-area {
 		padding-bottom: 80px;
 	}
@@ -4037,6 +4103,8 @@
 	.health-coaching-inner h2 {
 		font-size: 30px;
 	}
+=======
+>>>>>>> origin/admin
 	.feedback-quote p {
 		font-size: 17px;
 	}
@@ -4050,6 +4118,7 @@
 	.navbar-area.is-sticky.pb-0 {
 		padding-bottom: 20px !important;
 	}
+<<<<<<< HEAD
 	.kindergarten-main-banner {
 		padding-top: 130px;
 	}
@@ -4102,6 +4171,8 @@
 	.kindergarten-about-image .shape {
 		right: 85px;
 	}
+=======
+>>>>>>> origin/admin
 	.about-content .about-list {
 		text-align: left;
 	}
@@ -4109,6 +4180,7 @@
 		flex: 0 0 25%;
 		max-width: 25%;
 	}
+<<<<<<< HEAD
 	.kindergarten-services-area::before {
 		height: 160px;
 	}
@@ -4147,6 +4219,8 @@
 	.single-kindergarten-feedback-item .client-info h3 {
 		font-size: 17px;
 	}
+=======
+>>>>>>> origin/admin
 	.single-selected-ages-box h3 {
 		font-size: 22px;
 		margin-left: 0;
@@ -4285,9 +4359,12 @@
 	.single-courses-box .courses-content h3 {
 		font-size: 20px;
 	}
+<<<<<<< HEAD
 	.feedback-content h2 {
 		font-size: 29px;
 	}
+=======
+>>>>>>> origin/admin
 	.single-feedback-item {
 		padding: 50px 80px 50px 40px;
 	}
@@ -4304,6 +4381,7 @@
 	.single-banner-box h3 {
 		font-size: 19px;
 	}
+<<<<<<< HEAD
 	.single-funfacts-box {
 		padding-top: 75px;
 		padding-bottom: 75px;
@@ -4328,6 +4406,8 @@
 	.single-funfacts-item p {
 		font-size: 14px;
 	}
+=======
+>>>>>>> origin/admin
 	.get-instant-courses-content {
 		padding: 30px;
 	}
@@ -4401,6 +4481,7 @@
 	.single-blog-post-box .post-content h3 {
 		font-size: 20px;
 	}
+<<<<<<< HEAD
 	.single-testimonials-box {
 		max-width: 800px;
 		padding-right: 50px;
@@ -4416,6 +4497,8 @@
 		left: -85px;
 		top: -55px;
 	}
+=======
+>>>>>>> origin/admin
 	.our-story-title h3 {
 		font-size: 22px;
 	}
@@ -4752,6 +4835,7 @@
 		margin-top: 0;
 		font-size: 15px;
 	}
+<<<<<<< HEAD
 	.health-coaching-banner-area .divider {
 		height: 105px;
 	}
@@ -4774,6 +4858,8 @@
 	.health-coaching-shape7 {
 		display: none;
 	}
+=======
+>>>>>>> origin/admin
 	.single-lifestyle-box {
 		padding: 30px 20px;
 	}
@@ -4809,9 +4895,12 @@
 	.single-program-box h3 {
 		font-size: 20px;
 	}
+<<<<<<< HEAD
 	.single-health-services-box h3 {
 		font-size: 22px;
 	}
+=======
+>>>>>>> origin/admin
 	.experience-content .shape {
 		display: none;
 	}
@@ -4824,6 +4913,7 @@
 	.single-events-box-item .content h3 {
 		font-size: 20px;
 	}
+<<<<<<< HEAD
 	.health-coaching-feedback-image {
 		margin-right: -230px;
 	}
@@ -4834,6 +4924,8 @@
 		font-size: 30px;
 		margin-bottom: 40px;
 	}
+=======
+>>>>>>> origin/admin
 	.object1,
 	.object2,
 	.object3,
@@ -4846,6 +4938,7 @@
 	.feedback-quote p {
 		font-size: 17px;
 	}
+<<<<<<< HEAD
 	.kindergarten-main-banner {
 		padding-top: 150px;
 	}
@@ -4951,11 +5044,14 @@
 	.single-kindergarten-feedback-item .client-info span {
 		color: #000000;
 	}
+=======
+>>>>>>> origin/admin
 	.single-selected-ages-box h3 {
 		font-size: 21px;
 		margin-left: 0;
 		margin-right: 0;
 	}
+<<<<<<< HEAD
 	.kindergarten-shape15,
 	.kindergarten-shape16,
 	.kindergarten-shape18 {
@@ -4967,6 +5063,8 @@
 	.kindergarten-shape20 img {
 		max-width: 150px;
 	}
+=======
+>>>>>>> origin/admin
 	.events-box .content {
 		padding: 30px;
 	}
@@ -5162,6 +5260,7 @@
 		margin-bottom: 20px;
 		font-size: 39px;
 	}
+<<<<<<< HEAD
 	.health-coaching-banner-content h1 {
 		font-size: 65px;
 	}
@@ -5236,6 +5335,8 @@
 	.kindergarten-shape20 img {
 		max-width: 240px;
 	}
+=======
+>>>>>>> origin/admin
 }
 /* Min width 1550px */
 @media only screen and (min-width: 1550px) {
@@ -5261,6 +5362,7 @@
 	.hero-banner-area .container-fluid {
 		max-width: 1480px;
 	}
+<<<<<<< HEAD
 	.health-coaching-shape1 img {
 		max-width: 100%;
 	}
@@ -5289,6 +5391,8 @@
 	.kindergarten-shape20 img {
 		max-width: 100%;
 	}
+=======
+>>>>>>> origin/admin
 }
 /* Max width 575px */
 @media only screen and (max-width: 575px) {

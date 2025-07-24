@@ -6,7 +6,11 @@ import { getMaxAvailability } from "@/actions/teacher/getCalendar.ts";
 import { getDateFromWeekNumber, getDayDiff } from "@/utils/rruleUtils";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Role } from "@prisma/client";
+<<<<<<< HEAD
 import { UIDayDateTime } from "@/utils/dateUtils";
+=======
+import { UIDate, UIDayDateTime } from "@/utils/dateUtils";
+>>>>>>> origin/admin
 import { LESSON_TYPE_QVALUE } from "@/libs/constants";
 
 export async function generateMetadata({ params }) {
@@ -73,12 +77,23 @@ const page = async ({ params }) => {
 		maxCal == null
 			? dict.dashboard.myAvailabilityCalE1
 			: getDayDiff(new Date(), getDateFromWeekNumber(maxCal)) <= 60
+<<<<<<< HEAD
 			? dict.dashboard.myAvailabilityCalE2
 					.replace("{week}", `${maxCal.toString().slice(4)}`)
 					.replace("{year}", `${maxCal.toString().slice(0, 4)}`)
 			: dict.dashboard.myAvailabilityCalE0
 					.replace("{week}", `${maxCal.toString().slice(4)}`)
 					.replace("{year}", `${maxCal.toString().slice(0, 4)}`);
+=======
+			? dict.dashboard.myAvailabilityCalE4.replace(
+					"{date}",
+					UIDate(getDateFromWeekNumber(`${maxCal}`))
+			  )
+			: dict.dashboard.myAvailabilityCalE3.replace(
+					"{date}",
+					UIDate(getDateFromWeekNumber(`${maxCal}`))
+			  );
+>>>>>>> origin/admin
 
 	// pricing check
 	const teacherPricing = await getTeacherPricing(currentUser.id);

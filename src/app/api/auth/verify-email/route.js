@@ -3,7 +3,11 @@ import { decodeToken, verifyToken } from "@/utils/token";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { apiResponse, APIStatus } from "@/utils/apiResponse";
 import { generateToken } from "@/utils/token";
+<<<<<<< HEAD
 import { sendVerifyEmailToken } from "@/utils/mailer";
+=======
+import { sendVerifyEmailToken } from "@/utils/mailerZOHO";
+>>>>>>> origin/admin
 
 export async function POST(request) {
 	const body = await request.json();

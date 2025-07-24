@@ -61,6 +61,7 @@ const calculateDiscount = (
 	return (beforeDiscount - discountAmount).toFixed(2);
 };
 
+<<<<<<< HEAD
 const validateStripeMinimum = (amount: number | string, currency: string) => {
 	// Hardcoded FX rates (approx)
 	const fxToUsd: Record<string, number> = {
@@ -96,3 +97,6 @@ const validateStripeMinimum = (amount: number | string, currency: string) => {
   
   
 export { generateLessonId, generateBookingId, calculateDiscount, calculateTotal, validateStripeMinimum };
+=======
+export { generateLessonId, generateBookingId, calculateDiscount, calculateTotal };
+>>>>>>> origin/admin

@@ -228,6 +228,7 @@ async function main() {
 
 	// Add more seed data for other tables as needed...
 
+<<<<<<< HEAD
 	// Category
 	await prisma.category.createMany({
 		data: [
@@ -340,6 +341,8 @@ async function main() {
 		skipDuplicates: true,
 	});
 
+=======
+>>>>>>> origin/admin
 	// Coupon
 	await prisma.coupon.createMany({
 		data: [
@@ -357,6 +360,7 @@ async function main() {
 		skipDuplicates: true,
 	});
 
+<<<<<<< HEAD
 	// Partner
 	await prisma.partner.createMany({
 		data: [
@@ -406,6 +410,8 @@ async function main() {
 		skipDuplicates: true,
 	});
 
+=======
+>>>>>>> origin/admin
 	// Testimonial
 	await prisma.testimonial.createMany({
 		data: [
@@ -433,6 +439,7 @@ async function main() {
 		skipDuplicates: true,
 	});
 
+<<<<<<< HEAD
 	// Course
 	await prisma.course.createMany({
 		data: [
@@ -464,6 +471,8 @@ async function main() {
 		skipDuplicates: true,
 	});
 
+=======
+>>>>>>> origin/admin
 	// User
 	await prisma.user.createMany({
 		data: [

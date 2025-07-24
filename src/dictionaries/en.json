@@ -49,7 +49,11 @@
 		"feedback.ENGL": "Engaging Lesson",
 		"feedback.detail.ENGL": "Method of teaching is engaging?",
 		"feedback.KNOW": "Teacher's Knowledge",
+<<<<<<< HEAD
 		"feedback.detail.KNOW": "Teacher has deep knowledge of the subject?",
+=======
+		"feedback.detail.KNOW": "Tutor has deep knowledge of the subject?",
+>>>>>>> origin/admin
 		"feedback.SATS": "Overall Satisfaction",
 		"feedback.detail.SATS": "Satisfied with the quality of the lesson?"
 	},
@@ -58,9 +62,15 @@
 		"about": "About",
 		"courses": "Courses",
 		"contact": "Contact",
+<<<<<<< HEAD
 		"findTeachers": "Search Teachers",
 		"searchTeachers": "Search Teacher for Subject",
 		"becomeTeacher": "Become a Teacher",
+=======
+		"findTeachers": "Search Tutors",
+		"searchTeachers": "Search Tutor for Subject",
+		"becomeTeacher": "Become a Tutor",
+>>>>>>> origin/admin
 		"empty": "No lesson bookings in cart",
 		"lessonPrice": "€ {price}",
 		"totalPrice": "Total Price: € {price}",
@@ -89,7 +99,11 @@
 		"contact": "Contact Us",
 		"explore": "Explore",
 		"address": "Address",
+<<<<<<< HEAD
 		"tagLine": "Learn from the best teachers around the world from the Global Classroom. Master difficult subjects with expert guidance at a time and place of your choosing. Enroll now for a brighter future!"
+=======
+		"tagLine": "Learn from the best tutors around the world from the Global Classroom. Master difficult subjects with expert guidance at a time and place of your choosing. Enroll now for a brighter future!"
+>>>>>>> origin/admin
 	},
 	"homepage": {
 		"pageTitle": "Home",
@@ -119,19 +133,32 @@
 				{
 					"id": 2,
 					"title": "24x7 Learning Possibilities",
+<<<<<<< HEAD
 					"description": "Time zones don’t matter—our platform is always on.",
+=======
+					"description": "Time zones don’t matter - our platform is always on.",
+>>>>>>> origin/admin
 					"icon": "fa-solid fa-desktop"
 				},
 				{
 					"id": 3,
+<<<<<<< HEAD
 					"title": "Access to Global Learners",
 					"description": "Join a global classroom—where everyone learns and shares.",
+=======
+					"title": "Access to Global Audience",
+					"description": "Join a global classroom - where everyone learns and shares.",
+>>>>>>> origin/admin
 					"icon": "fa-solid fa-globe"
 				}
 			]
 		},
 		"getStarted": {
+<<<<<<< HEAD
 			"subTitle": "Your Search for best online teachers ends here!",
+=======
+			"subTitle": "Your Search for best online tutors ends here!",
+>>>>>>> origin/admin
 			"heading": "Select a subject to start learning",
 			"loading": "Loading subjects..."
 		},
@@ -142,13 +169,22 @@
 				{
 					"id": 1,
 					"title": "Sign Up & Set Your Goals",
+<<<<<<< HEAD
 					"description": "Create your free account and tell us what you want to learn or improve—subjects, topics, or skills.",
+=======
+					"description": "Create your free account and tell us what you want to learn or improve - subjects, topics, or skills.",
+>>>>>>> origin/admin
 					"icon": "fa-solid fa-bullseye"
 				},
 				{
 					"id": 2,
+<<<<<<< HEAD
 					"title": "Find the Right Teacher",
 					"description": "Browse qualified teachers, check their profiles, and book a session that fits your schedule. ",
+=======
+					"title": "Find the Right Tutor",
+					"description": "Browse qualified tutors, view their profiles, select timeslot that fits your schedule and book the lesson.",
+>>>>>>> origin/admin
 					"icon": "fa-regular fa-user"
 				},
 				{
@@ -159,6 +195,7 @@
 				}
 			]
 		},
+<<<<<<< HEAD
 		"aboutUs": {
 			"subTitle": "Online learning",
 			"heading": "Develop Your Skills, Learn Something New, and Grow Your Skills From Anywhere in the World!",
@@ -185,6 +222,67 @@
 					"text": "Self Development"
 				}
 			]
+=======
+		"becomeTeacher": {
+			"subTitle": "Become a Tutor",
+			"heading": "Share your skills and knowledge with the world! ",
+			"helpText": "Share your skills and knowledge with the world! Start earning in your free time!",
+			"benefits": [
+				{
+					"id": 1,
+					"title": "Global Reach",
+					"description": "Expand your teaching influence to a diverse group of students worldwide.",
+					"icon": "fa-solid fa-globe"
+				},
+				{
+					"id": 2,
+					"title": "Flexibility",
+					"description": "Teach on your own terms and schedule, accommodating your lifestyle.",
+					"icon": "fa-solid fa-clock"
+				},
+				{
+					"id": 3,
+					"title": "Additional Income",
+					"description": "Earn extra income by offering your expertise and services on the platform.",
+					"icon": "fa-solid fa-piggy-bank"
+				},
+				{
+					"id": 4,
+					"title": "Professional Growth",
+					"description": "Access resources, feedback, and collaboration opportunities for your continued development.",
+					"icon": "fa-solid fa-arrow-up-right-dots"
+				},
+				{
+					"id": 5,
+					"title": "Fulfillment",
+					"description": "Share your passion and make a difference in the lives of eager learners.",
+					"icon": "fa-solid fa-face-smile"
+				}
+			],
+			"subTitleSteps": "Start Teaching in 3 Simple Steps",
+			"headingSteps": "Connect. Teach. Earn.",
+			"steps": [
+				{
+					"id": 1,
+					"title": "Sign Up & Create Your Profile",
+					"description": "Register on the platform and set up your profile showcasing your qualifications and experience.",
+					"icon": "fa-solid fa-bullseye"
+				},
+				{
+					"id": 2,
+					"title": "Schedule Availability",
+					"description": "Teach using interactive media to engage students based on your expertise and availability.",
+					"icon": "fa-regular fa-calendar-days"
+				},
+				{
+					"id": 3,
+					"title": "Engage and Grow",
+					"description": "Interact with students, gather feedback, and build your reputation. Use our promotional tools to grow your student base.",
+					"icon": "fa-solid fa-seedling"
+				}
+			],
+			"becomeTutor": "Become a Tutor Today!"
+>>>>>>> origin/admin
 		},
 		"viewAllCourses": "View All Courses",
 		"registerForFree": "Register Free Now!",
@@ -224,7 +322,11 @@
 	},
 	"dashboard": {
 		"pageTitleStudent": "Student Dashboard",
+<<<<<<< HEAD
 		"pageTitleTeacher": "Teacher Dashboard",
+=======
+		"pageTitleTeacher": "Tutor Dashboard",
+>>>>>>> origin/admin
 		"pageTitleAdmin": "Admin Dashboard",
 		"pageTitleHelpdesk": "Helpdesk Dashboard",
 		"welcomeMessage": "Welcome {name}!",
@@ -234,12 +336,23 @@
 		"myProfileE1": "Profile & Account Settings not completed. \"{item}\" is missing.",
 		"myLessons": "My Upcoming Lessons",
 		"myLessonsE0": "Next lesson on {date} with {name}",
+<<<<<<< HEAD
 		"myLessonsE1": "No lessons pending. Book a lesson with a teacher now to continue learning!",
 		"myLessonsE2": "No upcoming lesson planned by any student yet. ",
 		"myAvailabilityCal": "My Availability Calendar",
 		"myAvailabilityCalE0": "Availability Calendar end: Week {week} Year {year}",
 		"myAvailabilityCalE1": "Availability Calendar not defined. ",
 		"myAvailabilityCalE2": "Availability Calendar ends in less than 2 months: Week {week} Year {year}. ",
+=======
+		"myLessonsE1": "No lessons pending. Book a lesson with a tutor now to continue learning!",
+		"myLessonsE2": "No upcoming lesson planned by any student yet. ",
+		"myAvailabilityCal": "My Availability Calendar",
+		"myAvailabilityCalE0": "Availability ends: Week {week} Year {year}",
+		"myAvailabilityCalE1": "No availability defined yet. ",
+		"myAvailabilityCalE2": "Availability ends in less than 2 months: Week {week} Year {year}. ",
+		"myAvailabilityCalE3": "Availability ends on {date}",
+		"myAvailabilityCalE4": "Availability ends in less than 2 months on {date}",
+>>>>>>> origin/admin
 		"myPricing": "My Pricing",
 		"myPricingE0": "Pricing has been defined.",
 		"myPricingE1": "Pricing is not defined.",
@@ -249,6 +362,7 @@
 		"accountSettings": "Account Settings",
 		"noCardsFound": "No Dashboard data to display"
 	},
+<<<<<<< HEAD
 	"dashboardAdmin": {
 		"menu": "Menu",
 		"dashboard": "Dashboard",
@@ -258,13 +372,44 @@
 	"registerForm": {
 		"pageTitleStudent": "New student registration",
 		"pageTitleTeacher": "New teacher registration",
+=======
+	"adminDashboard": {
+		"menu": "Menu",
+		"dashboard": "Dashboard",
+		"students": "Students",
+		"studentsH": "Total students = {students}\nTotal active students = {astudents}\nTotal valid students = {vstudents}",
+		"teachers": "Tutors",
+		"teachersH": "Total tutors = {teachers}\nTotal active tutors = {ateachers}\nTotal valid tutors = {vteachers}"
+	},
+	"adminUserMgmt": {
+		"userMgmt": "User Management",
+		"studentMgmt": "Student Management",
+		"teacherMgmt": "Tutor Management",
+		"email": "Email",
+		"displayName": "Display Name",
+		"firstName": "First Name",
+		"middleName": "Middle Name",
+		"lastName": "Last Name",
+		"dob": "Date of Birth",
+		"gender": "Gender",
+		"details": "Details"
+	},
+	"registerForm": {
+		"pageTitleStudent": "New student registration",
+		"pageTitleTeacher": "New tutor registration",
+>>>>>>> origin/admin
 		"mandatoryInput": "Mandatory input",
 		"pleaseWait": "Please wait...",
 		"register": "Register",
 		"registerStudent": "New student registration",
 		"registerStudentB": "Student Registration",
+<<<<<<< HEAD
 		"registerTeacher": "New teacher registration",
 		"registerTeacherB": "Teacher Registration",
+=======
+		"registerTeacher": "New tutor registration",
+		"registerTeacherB": "Tutor Registration",
+>>>>>>> origin/admin
 		"fullName": "Display Name",
 		"fullNameH": "Enter display name for your profile",
 		"fullNameE1": "Display Name must be at least 3 characters",
@@ -279,7 +424,11 @@
 		"confirmPasswordE1": "Password does not match",
 		"roleE1": "Invalid role specified",
 		"existingUserE1": "Email already registered. Please login with this email address or register with another email address",
+<<<<<<< HEAD
 		"roleInstructor": "I am a teacher",
+=======
+		"roleInstructor": "I am a tutor",
+>>>>>>> origin/admin
 		"roleStudent": "I am a student",
 		"existingDisplayNameE1": "Display Name already taken. Please select new",
 		"hasAccepted": "I agree to the {TnC} and {PP}",
@@ -320,7 +469,11 @@
 		"unregisteredUser": "This email address is not registered ",
 		"unverifiedEmail": "Please verify your email address first",
 		"disabledUser": "Your account has been disabled. Please get in touch with us to enable your account",
+<<<<<<< HEAD
 		"emailSubject": "tGCR | the Global Classroom | Temporary password",
+=======
+		"emailSubject": "[tGCR] Temporary password",
+>>>>>>> origin/admin
 		"emailText": "Your temporary password to login to your account is: {password}",
 		"success": "We've sent you a temporary password. \n\nPlease check your emailbox (including spam/junk folder)",
 		"failed": "Temporary password sending failed. Please try again.",
@@ -329,7 +482,11 @@
 	"verifyEmail": {
 		"pageTitle": "Email address verification",
 		"verifyEmailAddress": "Verify your email address",
+<<<<<<< HEAD
 		"emailSubject": "tGCR | the Global Classroom | Confirm your email address",
+=======
+		"emailSubject": "[tGCR] Confirm your email address",
+>>>>>>> origin/admin
 		"emailText": "Welcome to the Global Classroom.\n\nPlease verify your email address by clicking the following link: {token}",
 		"badRequest": "Missing token or bad request. Please action your request again. ",
 		"invalidToken": "Invalid token. This link is not correct. Please initiate the registration process again. ",
@@ -349,7 +506,11 @@
 		"emailE1": "Invalid email address",
 		"unregisteredUser": "This email address is not registered ",
 		"disabledUser": "Your account has been disabled. Please get in touch with us to enable your account",
+<<<<<<< HEAD
 		"emailSubject": "tGCR | the Global Classroom | Confirm your email address",
+=======
+		"emailSubject": "[tGCR] Confirm your email address",
+>>>>>>> origin/admin
 		"emailText": "Welcome to the Global Classroom.\n\nPlease verify your email address by clicking the following link: {token}",
 		"success": "Email sent. \n\nPlease check your emailbox (including spam/junk folder), and follow the instructions to verify your email address",
 		"failed": "Resend verification email has failed. Please try again.",
@@ -388,7 +549,11 @@
 		"dob": "Date of Birth",
 		"dobH": "Enter your date of birth",
 		"dobE1": "Student cannot be younger than 4 years old",
+<<<<<<< HEAD
 		"dobE2": "Teacher cannot be younger than 16 years old",
+=======
+		"dobE2": "Tutor cannot be younger than 16 years old",
+>>>>>>> origin/admin
 		"dobE3": "Invalid date of birth specified",
 		"gender": "Gender",
 		"genderH": "Select your gender",
@@ -472,7 +637,11 @@
 		"subjectsE1": "Please select at least one subject",
 		"subjectsE2": "Invalid or no subjects",
 		"remarks": "About Me",
+<<<<<<< HEAD
 		"remarksH": "Any additional information which you want to share with your teacher",
+=======
+		"remarksH": "Any additional information which you want to share with your tutor",
+>>>>>>> origin/admin
 		"instruction": "Medium of Instruction",
 		"instructionH": "Which language do you prefer for teaching instructions?",
 		"instructionE1": "Invalid or no instruction medium",
@@ -560,6 +729,7 @@
 		"success": "Password changed successfully"
 	},
 	"findTeacher": {
+<<<<<<< HEAD
 		"pageTitle": "Find a teacher",
 		"pageTitleH": "Find a teacher for online classes",
 		"search": "Search",
@@ -568,6 +738,16 @@
 		"searchResults": "Search Results",
 		"noResults": "No results found",
 		"noResultsH": "No teachers found for the search term",
+=======
+		"pageTitle": "Find a tutor",
+		"pageTitleH": "Find a tutor for online classes",
+		"search": "Search",
+		"searchH": "Search for a tutor",
+		"searchE1": "Please enter a search term",
+		"searchResults": "Search Results",
+		"noResults": "No results found",
+		"noResultsH": "No tutors found for the search term",
+>>>>>>> origin/admin
 		"noResultsE1": "Please try a different search term"
 	},
 	"availability": {
@@ -611,6 +791,10 @@
 		"pleaseWait": "Please wait...",
 		"success": "Availability Calendar updated successfully",
 		"updateBtn": "Update",
+<<<<<<< HEAD
+=======
+		"availabilityEndDate": "Availability end: {date}",
+>>>>>>> origin/admin
 		"availabilityDefined": "Availability end: Wk {week} Year {year}",
 		"availabilityNotDefined": "You have not yet defined your (future) availability",
 		"instructions": "Instructions to use the calendar to define your availability:",
@@ -649,6 +833,7 @@
 		"confirmBtn": "Confirm"
 	},
 	"teacherSearch": {
+<<<<<<< HEAD
 		"pageTitle": "Search an Expert Teacher for online classes! ",
 		"pageTitleH": "Refine your search using the filters below",
 		"pageTitleDetail": "Profile: {name}",
@@ -671,14 +856,45 @@
 		"priceH": "... charging per Lesson (€)",
 		"rating": "Rating",
 		"ratingH": "Teacher's Rating",
+=======
+		"pageTitle": "Search an Expert Tutor for online classes! ",
+		"pageTitleH": "Refine your search using the filters below",
+		"pageTitleDetail": "Profile: {name}",
+		"pageTitleDetailH": "{biotitle}: {bio}",
+		"searchCriteria": "I am searching for a Tutor",
+		"searchKeyword": "Search Keyword",
+		"searchKeywordH": "Subject",
+		"classLevel": "Grade/Class",
+		"classLevelH": "Grade/Class",
+		"educationalBoard": "Educational Board",
+		"educationalBoardH": "Educational Board",
+		"educationalBoardH1": "Teaches other Educational Boards",
+		"educationalQualification": "Educational Qualification",
+		"educationalQualificationH": "Qualification",
+		"experienceLevel": "Teaching Experience",
+		"experienceLevelH": "Experience",
+		"instructionMedium": "Medium of Instruction",
+		"instructionMediumH": "Spoken Language",
+		"price": "Price per Lesson (€)",
+		"priceH": "Price per Lesson (€)",
+		"rating": "Rating",
+		"ratingH": "Rating",
+>>>>>>> origin/admin
 		"sort": "Sort",
 		"sortH": "Sort results by",
 		"priceLoHi": "Price per Lesson (€): Low to High",
 		"priceHiLo": "Price per Lesson (€): High to Low",
+<<<<<<< HEAD
 		"ratingLoHi": "Teacher's Rating: Low to High",
 		"ratingHiLo": "Teacher's Rating: High to Low",
 		"bio": "Bio",
 		"bioH": "Teacher's Bio",
+=======
+		"ratingLoHi": "Rating: Low to High",
+		"ratingHiLo": "Rating: High to Low",
+		"bio": "Bio",
+		"bioH": "Bio",
+>>>>>>> origin/admin
 		"linkedin": "LinkedIn",
 		"linkedinH": "View LinkedIn Profile",
 		"details": "Detailed Profile",
@@ -686,18 +902,31 @@
 		"subjects": "Subjects",
 		"subjectsH": "Teaching Subjects",
 		"nativeLanguage": "Native Language",
+<<<<<<< HEAD
 		"nativeLanguageH": "Teacher's Native Language",
 		"spokenLanguages": "Spoken Languages",
 		"spokenLanguagesH": "Teacher's Spoken Languages",
+=======
+		"nativeLanguageH": "Native Language",
+		"spokenLanguages": "Spoken Languages",
+		"spokenLanguagesH": "Spoken Languages",
+>>>>>>> origin/admin
 		"totalLessons": "Total Lessons",
 		"totalLessonsH": "Lessons taught",
 		"activeStudents": "Active Students",
 		"activeStudentsH": "Enrolled Students",
 		"averageRating": "Average Rating",
+<<<<<<< HEAD
 		"averageRatingH": "Teacher's Average Rating",
 		"totalReviews": "Total Reviews",
 		"totalReviewsH": "{number} reviews",
 		"totalReviewsE1": "Teacher's lessons not yet reviewed",
+=======
+		"averageRatingH": "Average Rating",
+		"totalReviews": "Total Reviews",
+		"totalReviewsH": "{number} reviews",
+		"totalReviewsE1": "Tutor's lessons not yet reviewed",
+>>>>>>> origin/admin
 		"pricePerLesson": "Price (€): {range}",
 		"pricePerLessonRange": "Range of Price charged per Lesson",
 		"pricePerLessonH": "Price charged per Lesson",
@@ -707,8 +936,13 @@
 		"pricePerLessonE1": "Price per Lesson not defined",
 		"bookLesson": "Book Lesson",
 		"availableSlots": "Available Slots",
+<<<<<<< HEAD
 		"teacherNotFound": "Teacher not found. Please execute your search again ",
 		"noTeachersFound": "No teachers found. Please reset your search criteria",
+=======
+		"teacherNotFound": "Tutor not found. Please execute your search again ",
+		"noTeachersFound": "No tutors found. Please reset your search criteria",
+>>>>>>> origin/admin
 		"pleaseWait": "Please wait...",
 		"searchBtn": "Search"
 	},
@@ -718,7 +952,11 @@
 		"lastWeek": "Previous Week",
 		"today": "Today",
 		"nextWeek": "Next Week",
+<<<<<<< HEAD
 		"yourTeacher": "Your Teacher",
+=======
+		"yourTeacher": "Your Tutor",
+>>>>>>> origin/admin
 		"selectTimeslot": "Select a timeslot for your lesson",
 		"selectTimeslotH": "Select a timeslot to add it to your cart. Selecting it again removes it from your cart",
 		"totalReviews": "Total Reviews",
@@ -726,6 +964,7 @@
 		"subjects": "Subjects",
 		"subjectsH": "Teaching Subjects",
 		"noCommonSubjects": "No common subjects",
+<<<<<<< HEAD
 		"noCommonSubjectsH": "Teacher does not teach the subjects you want to learn",
 		"spokenLanguage": "Spoken Language",
 		"spokenLanguageH": "Teacher's Spoken Language",
@@ -747,6 +986,29 @@
 		"fetchingAvailableSlots": "Fetching timeslots available in this week...",
 		"noAvailableSlots": "No timeslots available in this week",
 		"failedChecks": "Warning: There are following mismatch(es) between your profile and the teacher's profile:",
+=======
+		"noCommonSubjectsH": "Tutor does not teach the subjects you want to learn",
+		"spokenLanguage": "Spoken Language",
+		"spokenLanguageH": "Spoken Language",
+		"noCommonLanguage": "No common language",
+		"noCommonLanguageH": "Tutor does not speak your language",
+		"educationalBoard": "Educational Board",
+		"educationalBoardH": "Teaching Educational Board",
+		"noCommonEducationalBoard": "No common educational board",
+		"noCommonEducationalBoardH": "Tutor does not teach the subjects of your educational board",
+		"classLevel": "Grade/Class",
+		"classLevelH": "Teaching Grade/Class",
+		"noCommonClassLevel": "No common grade/class",
+		"noCommonClassLevelH": "Tutor does not teach your grade/class",
+		"noCorrectClassLevel": "Incorrect lesson booking",
+		"noCorrectClassLevelH": "You are not booking the correct lesson, while tutor teaches your grade/class",
+		"pricePerLesson": "Price per Lesson (€): {price}",
+		"pricePerLessonH": "Price charged per lesson by the tutor",
+		"selectDatetime": "Select Date & Time slot for your lesson",
+		"fetchingAvailableSlots": "Fetching timeslots available in this week...",
+		"noAvailableSlots": "No timeslots available in this week",
+		"failedChecks": "Warning: There are following mismatch(es) between your profile and the tutor's profile:",
+>>>>>>> origin/admin
 		"ok": "Close this warning"
 	},
 	"checkoutCart": {
@@ -759,7 +1021,11 @@
 		"cartEmptyH": "No lessons in your cart to checkout",
 		"totalPrice": "Total Price (€): {price}",
 		"totalPriceH": "Total price of all items in your cart",
+<<<<<<< HEAD
 		"searchTeachers": "Continue searching for teachers",
+=======
+		"searchTeachers": "Continue searching for tutors",
+>>>>>>> origin/admin
 		"lessonPrice": "€ {price}",
 		"pleaseWait": "Please wait...",
 		"payBtn": "Pay Now",
@@ -782,7 +1048,11 @@
 		"completed": "Completed",
 		"email": "Email",
 		"student": "Student",
+<<<<<<< HEAD
 		"teacher": "Teacher",
+=======
+		"teacher": "Tutor",
+>>>>>>> origin/admin
 		"classLevel": "Grade/Class",
 		"price": "Price (€)",
 		"start": "Start",

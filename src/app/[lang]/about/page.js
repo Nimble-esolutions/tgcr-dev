@@ -1,10 +1,14 @@
 import AboutUs from "@/components/AboutUs/AboutUs";
+<<<<<<< HEAD
 import CourseAdvisor from "@/components/Shared/CourseAdvisor";
 import SubscribeForm from "@/components/Shared/SubscribeForm";
 import ASpot from "@/components/tGCRHome/ASpot";
 import FeedbackSliderWithFunFacts from "@/components/tGCRHome/FeedbackSliderWithFunFacts";
 import Partner from "@/components/tGCRHome/Partner";
 import { getPartners } from "@/actions/admin/getPartners";
+=======
+import ASpot from "@/components/tGCRHome/ASpot";
+>>>>>>> origin/admin
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 

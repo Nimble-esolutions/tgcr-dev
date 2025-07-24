@@ -1597,6 +1597,7 @@ Navbar Area CSS
 		padding-bottom: 20px;
 	}
 }
+<<<<<<< HEAD
 /*================================================
 Main Banner Area CSS
 =================================================*/
@@ -1708,6 +1709,8 @@ Main Banner Area CSS
 .banner-content .default-btn:hover {
 	color: #221638;
 }
+=======
+>>>>>>> origin/admin
 
 /*================================================
 Partner Area CSS
@@ -1854,6 +1857,7 @@ About Area CSS
 	bottom: 0;
 }
 
+<<<<<<< HEAD
 .shape1 {
 	position: absolute;
 	left: 12%;
@@ -1938,6 +1942,8 @@ About Area CSS
 		transform: scale(0.9);
 	}
 }
+=======
+>>>>>>> origin/admin
 .about-content .about-list {
 	padding-left: 0;
 	list-style-type: none;
@@ -3652,6 +3658,7 @@ Funfacts Area CSS
 	background: #f6f1ed;
 }
 
+<<<<<<< HEAD
 .funfacts-and-feedback-area {
 	position: relative;
 	background: #f6f1ed;
@@ -3760,6 +3767,8 @@ Funfacts Area CSS
 	font-size: 16px;
 }
 
+=======
+>>>>>>> origin/admin
 .funfacts-area .col-lg-3 {
 	border-right: 1px solid #eaecf0;
 }
@@ -3821,6 +3830,7 @@ Funfacts Area CSS
 /*================================================
 Feedback Area CSS
 =================================================*/
+<<<<<<< HEAD
 .feedback-content .sub-title {
 	display: block;
 	text-transform: uppercase;
@@ -3856,6 +3866,8 @@ Feedback Area CSS
 	background-color: #3877b0;
 }
 
+=======
+>>>>>>> origin/admin
 .single-feedback-item {
 	background-color: #ffffff;
 	position: relative;
@@ -3917,6 +3929,7 @@ Feedback Area CSS
 	line-height: 1;
 }
 
+<<<<<<< HEAD
 .testimonials-slides {
 	max-width: 900px;
 	margin-left: auto;
@@ -4012,6 +4025,8 @@ Feedback Area CSS
 	top: 15%;
 }
 
+=======
+>>>>>>> origin/admin
 /*================================================
 Video Area CSS
 =================================================*/
@@ -4095,6 +4110,7 @@ Video Area CSS
 		opacity: 0;
 	}
 }
+<<<<<<< HEAD
 .shape10 {
 	position: absolute;
 	left: -11%;
@@ -4105,6 +4121,8 @@ Video Area CSS
 	border-radius: 0;
 	animation: moveleftbounce 4s linear infinite;
 }
+=======
+>>>>>>> origin/admin
 
 /*================================================
 Get Instant Courses Area CSS
@@ -4156,6 +4174,7 @@ Get Instant Courses Area CSS
 	border-radius: 0 5px 5px 0;
 }
 
+<<<<<<< HEAD
 .shape5 {
 	position: absolute;
 	left: 5.5%;
@@ -4187,6 +4206,8 @@ Get Instant Courses Area CSS
 	animation: movescale 4s linear infinite;
 }
 
+=======
+>>>>>>> origin/admin
 /*================================================
 View All Courses Area CSS
 =================================================*/
@@ -4219,6 +4240,7 @@ View All Courses Area CSS
 	text-align: center;
 }
 
+<<<<<<< HEAD
 .shape9 {
 	position: absolute;
 	left: 10%;
@@ -4255,6 +4277,8 @@ View All Courses Area CSS
 	animation: movescale 4s linear infinite;
 }
 
+=======
+>>>>>>> origin/admin
 /*================================================
 Teacher Register Area CSS
 =================================================*/
@@ -4572,6 +4596,7 @@ Subscribe Area CSS
 	text-align: center;
 }
 
+<<<<<<< HEAD
 .shape13 {
 	position: absolute;
 	left: 22%;
@@ -4585,6 +4610,8 @@ Subscribe Area CSS
 	animation-timing-function: linear;
 }
 
+=======
+>>>>>>> origin/admin
 .subscribe-content.text-left {
 	max-width: 100%;
 	margin-left: 0;

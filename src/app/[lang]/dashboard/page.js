@@ -18,6 +18,11 @@ const page = async ({ params }) => {
 			redirect(`/${lang}/student/dashboard`);
 		case Role.Admin:
 			redirect(`/${lang}/admin/dashboard`);
+<<<<<<< HEAD
+=======
+		case Role.Manager:
+			redirect(`/${lang}/manager/dashboard`);
+>>>>>>> origin/admin
 		default:
 			redirect(`/${lang}/forbidden`);
 	}

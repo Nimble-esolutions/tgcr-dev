@@ -8,11 +8,25 @@ import Input from "@/components/FormHelpers/Input";
 import Select from "@/components/FormHelpers/Select";
 import SelectMulti from "@/components/FormHelpers/SelectMulti";
 import TextArea from "@/components/FormHelpers/TextArea";
+<<<<<<< HEAD
 import { LookupTable } from "@/libs/types";
 
 // SchoolInfo form is only displayed for Students
 // Students will only have one record in studentEducationalBoard and studentClassLevel
 const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchooling }) => {
+=======
+import { LookupTable, ImpersonationType } from "@/libs/types";
+
+// SchoolInfo form is only displayed for Students
+// Students will only have one record in studentEducationalBoard and studentClassLevel
+const SchoolInfoForm = ({
+	lang,
+	currentUser,
+	currentUserSchoolInfo,
+	impersonationType,
+	profileSchoolingDict,
+}) => {
+>>>>>>> origin/admin
 	const [isLoading, setIsLoading] = useState(false);
 
 	const {
@@ -140,7 +154,11 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 				lang,
 			})
 			.then((response) => {
+<<<<<<< HEAD
 				toast.success(profileSchooling.success);
+=======
+				toast.success(profileSchoolingDict.success);
+>>>>>>> origin/admin
 			})
 			.catch((error) => {
 				toast.error(error.response?.data?.message || error.message);
@@ -152,11 +170,18 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 
 	return (
 		<div className="subnav-form">
+<<<<<<< HEAD
 			<p>{profileSchooling.pageTitleH}</p>
+=======
+			{impersonationType === ImpersonationType.User && (
+				<p>{profileSchoolingDict.pageTitleH}</p>
+			)}
+>>>>>>> origin/admin
 
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="row">
 					<div className="col-md-6">
+<<<<<<< HEAD
 						<Input
 							id="email"
 							type="email"
@@ -176,6 +201,30 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 							errors={errors}
 							validationRules={{
 								required: profileSchooling.mandatoryInput,
+=======
+						{impersonationType === ImpersonationType.Admin && (
+							<Input
+								id="email"
+								type="email"
+								label={profileSchoolingDict.email}
+								disabled={true}
+								register={register}
+								errors={errors}
+								watch={watch}
+								setValue={setValue}
+							/>
+						)}
+
+						<Select
+							id="educationalBoardId"
+							label={profileSchoolingDict.educationalBoard}
+							helptext={profileSchoolingDict.educationalBoardH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileSchoolingDict.mandatoryInput,
+>>>>>>> origin/admin
 							}}
 							required={true}
 							displayOptions={educationalBoards}
@@ -184,6 +233,7 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 						/>
 						<Select
 							id="gradeId"
+<<<<<<< HEAD
 							label={profileSchooling.grade}
 							helptext={profileSchooling.gradeH}
 							disabled={isLoading}
@@ -191,6 +241,15 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 							errors={errors}
 							validationRules={{
 								required: profileSchooling.mandatoryInput,
+=======
+							label={profileSchoolingDict.grade}
+							helptext={profileSchoolingDict.gradeH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileSchoolingDict.mandatoryInput,
+>>>>>>> origin/admin
 							}}
 							required={true}
 							displayOptions={classLevels}
@@ -199,6 +258,7 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 						/>
 						<Select
 							id="instructionMedium"
+<<<<<<< HEAD
 							label={profileSchooling.instruction}
 							helptext={profileSchooling.instructionH}
 							disabled={isLoading}
@@ -206,6 +266,15 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 							errors={errors}
 							validationRules={{
 								required: profileSchooling.mandatoryInput,
+=======
+							label={profileSchoolingDict.instruction}
+							helptext={profileSchoolingDict.instructionH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileSchoolingDict.mandatoryInput,
+>>>>>>> origin/admin
 							}}
 							required={true}
 							displayOptions={instructionMediums}
@@ -216,9 +285,15 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 					<div className="col-md-6">
 						<TextArea
 							id="bio"
+<<<<<<< HEAD
 							label={profileSchooling.remarks}
 							helptext={profileSchooling.remarksH}
 							disabled={isLoading}
+=======
+							label={profileSchoolingDict.remarks}
+							helptext={profileSchoolingDict.remarksH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+>>>>>>> origin/admin
 							register={register}
 							errors={errors}
 							validationRules={{}}
@@ -227,6 +302,7 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 						/>
 						<SelectMulti
 							id="subjectList"
+<<<<<<< HEAD
 							label={profileSchooling.subjects}
 							helptext={profileSchooling.subjectsH}
 							disabled={isLoading}
@@ -237,6 +313,18 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 								// minLength: {
 								// 	value: 1,
 								// 	message: profileSchooling.subjectsE1,
+=======
+							label={profileSchoolingDict.subjects}
+							helptext={profileSchoolingDict.subjectsH}
+							disabled={impersonationType === ImpersonationType.Admin || isLoading}
+							register={register}
+							errors={errors}
+							validationRules={{
+								required: profileSchoolingDict.subjectsE1,
+								// minLength: {
+								// 	value: 1,
+								// 	message: profileSchoolingDict.subjectsE1,
+>>>>>>> origin/admin
 								// },
 							}}
 							displayOptions={subjects}
@@ -246,9 +334,19 @@ const SchoolInfoForm = ({ lang, currentUser, currentUserSchoolInfo, profileSchoo
 					</div>
 				</div>
 				<div className="col-12">
+<<<<<<< HEAD
 					<button type="submit" disabled={isLoading}>
 						{isLoading ? profileSchooling.pleaseWait : profileSchooling.updateBtn}
 					</button>
+=======
+					{impersonationType === ImpersonationType.User && (
+						<button type="submit" disabled={isLoading}>
+							{isLoading
+								? profileSchoolingDict.pleaseWait
+								: profileSchoolingDict.updateBtn}
+						</button>
+					)}
+>>>>>>> origin/admin
 				</div>
 			</form>
 		</div>

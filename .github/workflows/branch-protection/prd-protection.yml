@@ -6,7 +6,11 @@ branch_protection_rules:
       contexts:
         - "Build and Push"
     required_pull_request_reviews:
+<<<<<<< HEAD
       required_approving_review_count: 2
+=======
+      required_approving_review_count: 1 # Require at least one approval change it 2 later
+>>>>>>> origin/admin
       dismiss_stale_reviews: true
       require_code_owner_reviews: true
     enforce_admins: false

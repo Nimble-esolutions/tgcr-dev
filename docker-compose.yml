@@ -1,4 +1,5 @@
 services:
+<<<<<<< HEAD
   app:
     image: ${IMAGE_TAG:-ghcr.io/t-gcr/tgcr-app:latest}
     restart: unless-stopped
@@ -14,6 +15,8 @@ services:
       timeout: 10s
       retries: 3
 
+=======
+>>>>>>> origin/admin
   nginx:
     image: nginx:alpine
     restart: unless-stopped
@@ -25,8 +28,11 @@ services:
       - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/certbot/www:/var/www/certbot
       - ./nginx/certbot/conf:/etc/letsencrypt
+<<<<<<< HEAD
     depends_on:
       - app
+=======
+>>>>>>> origin/admin
     networks:
       - app-network
     # environment:
@@ -35,6 +41,26 @@ services:
     #   - API_RATE_LIMIT=100r/m
     #   - AUTH_RATE_LIMIT=20r/m
 
+<<<<<<< HEAD
+=======
+  app:
+    image: ${IMAGE_TAG:-ghcr.io/t-gcr/tgcr-app:latest}
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+    volumes:
+      - ./.env:/app/.env:ro
+    depends_on:
+      - nginx
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://api:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+>>>>>>> origin/admin
   certbot:
     image: certbot/certbot
     volumes:

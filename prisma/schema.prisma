@@ -109,16 +109,22 @@ model User {
   createdOn                        DateTime                          @default(now())
   updatedOn                        DateTime                          @updatedAt
   accounts                         Account[]
+<<<<<<< HEAD
   courses                          Course[]
   earnings                         Earning[]
   favourites                       Favourite[]
+=======
+>>>>>>> origin/admin
   instructorAvailability           InstructorAvailability[]
   studentLessonRequests            LessonRequest[]                   @relation(name: "StudentRelation")
   instructorLessonRequests         LessonRequest[]                   @relation(name: "InstructorRelation")
   notifications                    Notification[]
   payments                         Payment[]
   profile                          Profile?
+<<<<<<< HEAD
   progresses                       Progress[]
+=======
+>>>>>>> origin/admin
   country                          Country?                          @relation(fields: [countryId], references: [id])
   timezone                         Timezone?                         @relation(fields: [timezoneId], references: [id])
   studentClassLevel                StudentClassLevel?
@@ -134,10 +140,17 @@ model User {
 }
 
 model Profile {
+<<<<<<< HEAD
   id                   String   @id @default(uuid())
   userId               String   @unique
   bioTitle             String?
   bio                  String?  @db.VarChar(4096)
+=======
+  id                   String    @id @default(uuid())
+  userId               String    @unique
+  bioTitle             String?
+  bio                  String?   @db.VarChar(4096)
+>>>>>>> origin/admin
   phoneCountryId       Int?
   phone                String?
   linkedin             String?
@@ -145,9 +158,15 @@ model Profile {
   twitter              String?
   facebook             String?
   youtube              String?
+<<<<<<< HEAD
   subjects             String?  @db.VarChar(300)
   nativeLanguage       String?  @db.VarChar(100)
   instructionLanguages String?  @db.VarChar(300)
+=======
+  subjects             String?   @db.VarChar(300)
+  nativeLanguage       String?   @db.VarChar(100)
+  instructionLanguages String?   @db.VarChar(300)
+>>>>>>> origin/admin
   parentsFullName      String?
   parentsEmail         String?
   parentsCountryId     Int?
@@ -157,9 +176,16 @@ model Profile {
   averageRating        Float?
   totalReviews         Int?
   costAverage          Float?
+<<<<<<< HEAD
   createdOn            DateTime @default(now())
   updatedOn            DateTime @updatedAt
   user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+=======
+  lastLogin            DateTime?
+  createdOn            DateTime  @default(now())
+  updatedOn            DateTime  @updatedAt
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+>>>>>>> origin/admin
 
   @@index([parentsCountryId], map: "parentsCountryId")
   @@index([phoneCountryId], map: "phoneCountryId")
@@ -184,6 +210,7 @@ model Account {
   @@index([userId])
 }
 
+<<<<<<< HEAD
 model Category {
   id        Int      @id @default(autoincrement())
   name      String
@@ -193,6 +220,8 @@ model Category {
   courses   Course[]
 }
 
+=======
+>>>>>>> origin/admin
 model Testimonial {
   id          Int      @id @default(autoincrement())
   name        String
@@ -203,6 +232,7 @@ model Testimonial {
   updatedOn   DateTime @updatedAt
 }
 
+<<<<<<< HEAD
 model Partner {
   id        Int      @id @default(autoincrement())
   name      String
@@ -330,6 +360,8 @@ model Progress {
   @@index([videoId], map: "Progress_videoId_fkey")
 }
 
+=======
+>>>>>>> origin/admin
 model Coupon {
   id                Int       @id @default(autoincrement())
   code              String    @unique
@@ -341,6 +373,7 @@ model Coupon {
   createdOn         DateTime  @default(now())
 }
 
+<<<<<<< HEAD
 model Subscription {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -348,6 +381,8 @@ model Subscription {
   createdOn DateTime @default(now())
 }
 
+=======
+>>>>>>> origin/admin
 model InstructorAvailability {
   id        Int        @id @default(autoincrement())
   userId    String
@@ -444,6 +479,11 @@ model Payment {
   paymentStatus PaymentStatus @default(Pending)
   transactionId String?
   userId        String?
+<<<<<<< HEAD
+=======
+  createdOn     DateTime      @default(now())
+  updatedOn     DateTime      @updatedAt
+>>>>>>> origin/admin
   user          User?         @relation(fields: [userId], references: [id])
   lesson        Lesson?       @relation(fields: [lessonId], references: [id])
 
@@ -529,6 +569,7 @@ model StudentEducationalBoard {
   @@index([studentId], map: "userId")
 }
 
+<<<<<<< HEAD
 enum AccessTime {
   Lifetime
   Three_Months
@@ -552,6 +593,8 @@ enum AvailabilityDayOfWeek {
   Sunday
 }
 
+=======
+>>>>>>> origin/admin
 enum NotificationStatus {
   Unread
   Read
@@ -577,7 +620,10 @@ enum LessonRequestStatus {
   Cancelled
   Started
   Completed
+<<<<<<< HEAD
   Failed
+=======
+>>>>>>> origin/admin
 }
 
 enum Gender {
@@ -590,6 +636,10 @@ enum Role {
   Student
   Instructor
   Admin
+<<<<<<< HEAD
+=======
+  Manager
+>>>>>>> origin/admin
 }
 
 enum RecordType {

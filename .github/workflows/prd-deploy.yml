@@ -1,7 +1,11 @@
 name: Production Build and Deploy
 on:
   push:
+<<<<<<< HEAD
     branches: [prd]
+=======
+    branches: [main]
+>>>>>>> origin/admin
   workflow_dispatch:
     inputs:
       rollback_version:
@@ -22,13 +26,18 @@ jobs:
       packages: write
       contents: read
     outputs:
+<<<<<<< HEAD
       image_tag: ${{ steps.vars.outputs.image_tag }}
+=======
+      image_tag: ${{ steps.meta.outputs.tags }}
+>>>>>>> origin/admin
       current_version: ${{ steps.meta.outputs.version }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+<<<<<<< HEAD
       - name: Run tests
         run: npm test
 
@@ -42,6 +51,21 @@ jobs:
           vuln-type: "os,library"
           severity: "CRITICAL"
       
+=======
+      # - name: Run tests
+      #   run: npm test
+
+      # - name: Security scan
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      #     format: "table"
+      #     exit-code: "1"
+      #     ignore-unfixed: true
+      #     vuln-type: "os,library"
+      #     severity: "CRITICAL"
+
+>>>>>>> origin/admin
       - name: Calculate image tag
         id: vars
         run: echo "IMAGE_TAG=${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
@@ -95,18 +119,30 @@ jobs:
     runs-on: ubuntu-latest
     environment: prd
     name: Production Deployment
+<<<<<<< HEAD
     if: ${{ github.event_name == 'workflow_dispatch' && !github.event.inputs.rollback_version }}
 
     steps:
       - run: echo "Image tag is ${{ needs.build-and-push.outputs.image_tag }}"
       
+=======
+    if: github.event_name == 'workflow_dispatch' && !github.event.inputs.rollback_version
+
+    steps:
+      - run: echo "Image tag is ${{ needs.build-and-push.outputs.image_tag }}"
+
+>>>>>>> origin/admin
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Ensure target directories exist
         uses: appleboy/ssh-action@v0.1.10
         with:
+<<<<<<< HEAD
           host: ${{ vars.DEV_DROPLET_IP }}
+=======
+          host: ${{ vars.DROPLET_IP }}
+>>>>>>> origin/admin
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
@@ -119,7 +155,11 @@ jobs:
       - name: Deploy to Droplet
         uses: appleboy/ssh-action@v0.1.10
         with:
+<<<<<<< HEAD
           host: ${{ vars.DEV_DROPLET_IP }}
+=======
+          host: ${{ vars.DROPLET_IP }}
+>>>>>>> origin/admin
           username: ${{ secrets.DEPLOY_USER  }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
@@ -148,6 +188,10 @@ jobs:
 
             cat > ${{ env.APP_DIR }}/.env <<EOF
             APP_DIR="${{ env.APP_DIR }}"
+<<<<<<< HEAD
+=======
+            APP_NAME=${{ vars.APP_NAME }}
+>>>>>>> origin/admin
             ADMIN_EMAIL="${{ vars.ADMIN_EMAIL }}"
             APP_DOMAIN="${{ vars.APP_DOMAIN }}"
             NODE_ENV="${{ vars.APP_NODE_ENV }}"
@@ -165,6 +209,11 @@ jobs:
             EMAIL_SMTP_HOST="${{ secrets.EMAIL_SMTP_HOST }}"
             EMAIL_SMTP_PORT="${{ secrets.EMAIL_SMTP_PORT }}"
             EMAIL_SMTP_SECURE="${{ secrets.EMAIL_SMTP_SECURE }}"
+<<<<<<< HEAD
+=======
+            EMAIL_ZOHO_URL="${{ vars.EMAIL_ZOHO_URL }}"
+            EMAIL_ZOHO_TOKEN="${{ secrets.EMAIL_ZOHO_TOKEN }}"
+>>>>>>> origin/admin
             NEXT_PUBLIC_JAAS_APP_ID="${{ secrets.NEXT_PUBLIC_JAAS_APP_ID }}"
             JAAS_API_KID="${{ secrets.JAAS_API_KID }}"
             JAAS_API_SECRET="${{ secrets.JAAS_API_SECRET }}"     
@@ -212,6 +261,7 @@ jobs:
             sed -i 's/\r$//' deploy.sh # Normalize line endings
             ./deploy.sh
 
+<<<<<<< HEAD
       - name: Send Slack notification
         uses: slackapi/slack-github-action@v1
         if: always()
@@ -220,10 +270,24 @@ jobs:
           slack-message: "Production deployment ${{ job.status }}: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+=======
+      # - name: Send Slack notification
+      #   uses: slackapi/slack-github-action@v1
+      #   if: always()
+      #   with:
+      #     channel-id: "deployments"
+      #     slack-message: "Production deployment ${{ job.status }}: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+>>>>>>> origin/admin
 
   rollback:
     if: ${{ github.event.inputs.rollback_version }}
     runs-on: ubuntu-latest
+<<<<<<< HEAD
+=======
+    environment: prd
+>>>>>>> origin/admin
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -232,8 +296,13 @@ jobs:
         run: |
           chmod +x ./scripts/rollback.sh
           ./scripts/rollback.sh prd \
+<<<<<<< HEAD
             ${{ secrets.PRD_DROPLET_IP }} \
             "${{ secrets.PRD_SSH_KEY }}" \
+=======
+            ${{ vars.DROPLET_IP }} \
+            "${{ secrets.DEPLOY_SSH_KEY }}" \
+>>>>>>> origin/admin
             ${{ github.event.inputs.rollback_version }}
 
       - name: Send Slack notification

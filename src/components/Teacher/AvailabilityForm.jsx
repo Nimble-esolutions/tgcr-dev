@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { useRouter, usePathname } from "next/navigation";
 import { set, useForm } from "react-hook-form";
 import axios from "axios";
@@ -12,6 +13,17 @@ import { getWeekNumber } from "@/utils/rruleUtils";
 const AvailabilityForm = ({ lang, teacher, availabilityCal, availabilityCalendarDict }) => {
 	const router = useRouter();
 	const path = usePathname();
+=======
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { AvailabilityCalendar } from "@/components/Calendar/AvailabilityCalendar";
+import { getWeekNumber, getDateFromWeekNumber } from "@/utils/rruleUtils";
+import { UIDate } from "@/utils/dateUtils";
+import styles from "./css/AvailabilityForm.module.css";
+
+const AvailabilityForm = ({ lang, teacher, availabilityCal, availabilityCalendarDict }) => {
+>>>>>>> origin/admin
 	const maxEndWeek =
 		availabilityCal.length > 0 ? Math.max(...availabilityCal.map((event) => event.endWeek)) : 0;
 	const currentWeek = getWeekNumber(new Date());
@@ -90,11 +102,25 @@ const AvailabilityForm = ({ lang, teacher, availabilityCal, availabilityCalendar
 									: styles["cal-instructions-availability"]
 							}
 						>
+<<<<<<< HEAD
 							{maxEndWeek === 0 || maxEndWeek < currentWeek
 								? availabilityCalendarDict.availabilityNotDefined
 								: availabilityCalendarDict.availabilityDefined
 										.replace("{week}", `${maxEndWeek.toString().slice(4)}`)
 										.replace("{year}", `${maxEndWeek.toString().slice(0, 4)}`)}
+=======
+							{/* {maxEndWeek === 0 || maxEndWeek < currentWeek
+								? availabilityCalendarDict.availabilityNotDefined
+								: availabilityCalendarDict.availabilityDefined
+										.replace("{week}", `${maxEndWeek.toString().slice(4)}`)
+										.replace("{year}", `${maxEndWeek.toString().slice(0, 4)}`)} */}
+							{maxEndWeek === 0 || maxEndWeek < currentWeek
+								? availabilityCalendarDict.availabilityNotDefined
+								: availabilityCalendarDict.availabilityEndDate.replace(
+										"{date}",
+										UIDate(getDateFromWeekNumber(`${maxEndWeek}`))
+								  )}
+>>>>>>> origin/admin
 						</label>
 						<label className={styles["cal-instructions-header"]}>
 							{availabilityCalendarDict.instructions}

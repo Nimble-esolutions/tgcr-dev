@@ -18,7 +18,10 @@ import {
 } from "@/utils/rruleUtils";
 import { generateUId } from "@/utils/utils";
 import styles from "./css/AvailabilityCalendar.module.css";
+<<<<<<< HEAD
 import { set } from "react-hook-form";
+=======
+>>>>>>> origin/admin
 
 /*
 	Availability Calendar for a teacher
@@ -37,7 +40,10 @@ interface AvailabilityCalendarProps {
 	id: string;
 	value: EventInput[];
 	handleFieldChange: (value: any) => void;
+<<<<<<< HEAD
 	// showBookings: boolean;
+=======
+>>>>>>> origin/admin
 	availabilityCalendarDict: Dictionary;
 	// other properties of useForm are not used
 }
@@ -48,7 +54,10 @@ function AvailabilityCalendar({
 	id,
 	value,
 	handleFieldChange,
+<<<<<<< HEAD
 	// showBookings,
+=======
+>>>>>>> origin/admin
 	availabilityCalendarDict,
 }: AvailabilityCalendarProps) {
 	const [displayedCalendarEvents, setDisplayedCalendarEvents] =
@@ -91,6 +100,7 @@ function AvailabilityCalendar({
 	React.useEffect(() => {
 		// load data and put it in useState
 		var events: EventInput[] = value;
+<<<<<<< HEAD
 
 		// if (!showBookings) {
 		// 	// remove bookings, and leave only the availabilities
@@ -99,6 +109,8 @@ function AvailabilityCalendar({
 		// 	);
 		// }
 
+=======
+>>>>>>> origin/admin
 		setDisplayedCalendarEvents(events);
 	}, [value]);
 
@@ -120,17 +132,37 @@ function AvailabilityCalendar({
 		}));
 	}
 
+<<<<<<< HEAD
 	function handleSelectAllow(selectInfo: any) {
 		// Check if the selection spans more than one day; and does not allow it
 		const start = selectInfo.start;
 		const end = selectInfo.end;
 		return start.getDate() === end.getDate();
+=======
+	function handleEventCreate(selectInfo: any) {
+		// handles creation of new events
+		const start = selectInfo.start;
+		const end = selectInfo.end;
+		const now = new Date();
+
+		if (start.getDate() === end.getDate() && start >= now) {
+			// allow creation only within the same day and in the future
+			return true;
+		} else {
+			// events not allowed in any other case
+			return false;
+		}
+>>>>>>> origin/admin
 	}
 
 	function getEventClassNames(eventInfo: any) {
 		// finding the css class name between the deletable and non-deletable events
 		if (eventInfo?.event?.title === RecordType.Availability) {
+<<<<<<< HEAD
 			// render availability
+=======
+			// coming from the DB... render availability
+>>>>>>> origin/admin
 			if (
 				canDeleteAvailability(
 					eventInfo?.event?.title,
@@ -144,8 +176,13 @@ function AvailabilityCalendar({
 				return styles["availability-non-deletable"];
 			}
 		} else {
+<<<<<<< HEAD
 			// render booking
 			return styles["booking"];
+=======
+			// newly created record (not yet saved to the DB)
+			return styles["availability-newly-defined"];
+>>>>>>> origin/admin
 		}
 	}
 
@@ -155,8 +192,11 @@ function AvailabilityCalendar({
 		// the deletion of event is handled via the DeleteDialog/handleEventDelete and not via the <span onclick>
 		return (
 			<>
+<<<<<<< HEAD
 				{/* <>{eventInfo.timeText}</> */}
 				{/* <i> {eventInfo.event.title}</i> */}
+=======
+>>>>>>> origin/admin
 				{canDeleteAvailability(
 					eventInfo.event.title,
 					eventInfo.event.start,
@@ -219,7 +259,11 @@ function AvailabilityCalendar({
 				// slotMaxTime="18:00:00" // PHASE-X variable to be stored for a teacher
 				editable={false} // events are non-editable - cannot be dragged/dropped/resized
 				selectable={true} // events are selectable
+<<<<<<< HEAD
 				selectAllow={handleSelectAllow} // handles when events are being selected - specifically multi-day events are not allowed
+=======
+				selectAllow={handleEventCreate} // handles when events are being created - specifically multi-day events are not allowed
+>>>>>>> origin/admin
 				selectMirror={true} // shows a "placeholder" event when the user is dragging to select a time range.
 				selectOverlap={false} // not allowed to select periods of time that overlap with existing events
 				weekends={true} // show weekends; // PHASE-X variable to be stored for a teacher
@@ -268,6 +312,7 @@ function canDeleteAvailability(
 	end: Date,
 	displayedCalendarEvents: EventInput[]
 ): boolean {
+<<<<<<< HEAD
 	// checks if the availability can be deleted... the date is validated for "Booking" as well as future date
 	// allows deletion of events after tomorrow // DISCUSS
 	if (title === RecordType.Booking) {
@@ -281,16 +326,23 @@ function canDeleteAvailability(
 			(event?.start ?? new Date()) >= start &&
 			(event?.end ?? new Date()) <= end
 	);
+=======
+	// checks if the availability can be deleted...
+	// allows deletion of events after tomorrow // DISCUSS
+>>>>>>> origin/admin
 	var now = GetDatepart(new Date());
 	var tomorrow = new Date(now);
 	tomorrow.setDate(now.getDate() + 1);
 	tomorrow.setHours(23, 59, 59, 999);
 
+<<<<<<< HEAD
 	if (bookings.length > 0) {
 		// cannot delete if there are bookings within this availability window
 		return false;
 	}
 
+=======
+>>>>>>> origin/admin
 	if (start && start <= tomorrow) {
 		// cannot delete next day availability
 		return false;
@@ -320,6 +372,7 @@ function AddDialog({
 	// constructing the add event dialog. Initial values are taken from user interaction when the user selects a time slot
 	// the dialog box asks for recurrance days and end date of the event
 	// the end date reverts back to start date of the event if the user selects a date beyond 1 year from the start date
+<<<<<<< HEAD
 	const daysOfWeek = [
 		availabilityCalendarDict.monday,
 		availabilityCalendarDict.tuesday,
@@ -329,6 +382,20 @@ function AddDialog({
 		availabilityCalendarDict.saturday,
 		availabilityCalendarDict.sunday,
 	];
+=======
+	const daysOfWeek = React.useMemo(
+		() => [
+			availabilityCalendarDict.monday,
+			availabilityCalendarDict.tuesday,
+			availabilityCalendarDict.wednesday,
+			availabilityCalendarDict.thursday,
+			availabilityCalendarDict.friday,
+			availabilityCalendarDict.saturday,
+			availabilityCalendarDict.sunday,
+		],
+		[availabilityCalendarDict]
+	);
+>>>>>>> origin/admin
 	const rruleWeekdays = {
 		[availabilityCalendarDict.monday]: RRule.MO,
 		[availabilityCalendarDict.tuesday]: RRule.TU,
@@ -339,6 +406,7 @@ function AddDialog({
 		[availabilityCalendarDict.sunday]: RRule.SU,
 	};
 
+<<<<<<< HEAD
 	const dow = eventAdd?.start.getDay() ?? 0; // returns 0 for Sunday and 6 for Saturday... we are mapping 0 to Monday and 6 to Sunday
 	const dow1 = dow === 0 ? 6 : dow - 1; // convert to 0 for Monday and 6 for Sunday
 	const startDay = daysOfWeek[dow1];
@@ -350,6 +418,27 @@ function AddDialog({
 	if (!visible) return null;
 	if (!eventAdd) return null;
 
+=======
+	const [selectedDays, setSelectedDays] = React.useState<string[]>([]); // the days which the user selects for the recurrence
+	const [endDate, setEndDate] = React.useState<Date | null>(null); // default to end date of the event
+	const [error, setError] = React.useState<string | null>(null);
+
+	React.useEffect(() => {
+		if (visible && eventAdd) {
+			const dow = eventAdd.start.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
+			const startDay = daysOfWeek[dow === 0 ? 6 : dow - 1]; // 0=Monday, ..., 6=Sunday
+			setSelectedDays([startDay]);
+			setEndDate(new Date(eventAdd?.end ?? new Date()));
+		}
+	}, [visible, eventAdd, daysOfWeek]);
+
+	if (!visible) return null;
+	if (!eventAdd) return null;
+
+	const dow = eventAdd.start.getDay();
+	const startDay = daysOfWeek[dow === 0 ? 6 : dow - 1];
+
+>>>>>>> origin/admin
 	const convertToRRuleWeekdays = (selectedDays: string[]) => {
 		// mapping between daysOfWeek and rruleWeekdays
 		return selectedDays.map((day) => rruleWeekdays[day]);
@@ -388,11 +477,19 @@ function AddDialog({
 	const handleEventAdd = (
 		eventAdd: null | DateSelectArg,
 		selectedDays: string[],
+<<<<<<< HEAD
 		endDate: Date
 	) => {
 		// adds the calendar event to displayedCalendarEvents when the user clicks the confirm button
 		// all events are added as recurrence with RRULE... single day events ends up being a recurrence of 1 day
 		if (eventAdd) {
+=======
+		endDate: Date | null
+	) => {
+		// adds the calendar event to displayedCalendarEvents when the user clicks the confirm button
+		// all events are added as recurrence with RRULE... single day events ends up being a recurrence of 1 day
+		if (eventAdd && endDate) {
+>>>>>>> origin/admin
 			var calendarApi = eventAdd.view.calendar;
 			calendarApi.unselect();
 
@@ -446,7 +543,11 @@ function AddDialog({
 						{availabilityCalendarDict.endDate}
 						<input
 							type="date"
+<<<<<<< HEAD
 							value={endDate.toISOString().split("T")[0]}
+=======
+							value={endDate ? endDate.toISOString().split("T")[0] : ""}
+>>>>>>> origin/admin
 							onChange={handleEndDateChange}
 						/>
 					</label>
@@ -456,7 +557,13 @@ function AddDialog({
 					<span
 						className="default-btn-icon"
 						title={availabilityCalendarDict.confirm}
+<<<<<<< HEAD
 						onClick={() => handleEventAdd(eventAdd, selectedDays, endDate)}
+=======
+						onClick={() =>
+							handleEventAdd(eventAdd, selectedDays, endDate ? endDate : null)
+						}
+>>>>>>> origin/admin
 					>
 						<i className="fas fa-check-square"></i>
 					</span>

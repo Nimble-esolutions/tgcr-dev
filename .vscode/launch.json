@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // {
 // 	"configurations": [
 // 		{
@@ -9,6 +10,8 @@
 // 	]
 // }
 
+=======
+>>>>>>> origin/admin
 {
 	"version": "0.2.0",
 	"configurations": [
@@ -18,13 +21,33 @@
 			"request": "launch",
 			"url": "http://localhost:3000/",
 			"webRoot": "${workspaceFolder}"
+<<<<<<< HEAD
 		}, 
+=======
+		},
+>>>>>>> origin/admin
 		{
 			"name": "Chrome",
 			"type": "chrome",
 			"request": "launch",
+<<<<<<< HEAD
 			"url": "https://localhost:3000/", 
 			"webRoot": "${workspaceFolder}"
 		}, 
 	]
   }
+=======
+			"url": "https://localhost:3000/",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "Attach to Node",
+			"port": 9229,
+			"restart": false,
+			"protocol": "inspector"
+		}
+	]
+}
+>>>>>>> origin/admin

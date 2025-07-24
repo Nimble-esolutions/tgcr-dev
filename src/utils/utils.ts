@@ -1,6 +1,10 @@
 import he from "he";
 //import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
+<<<<<<< HEAD
+=======
+import { PROFILE_BIO_MAXSIZE } from "@/libs/constants";
+>>>>>>> origin/admin
 
 // generates a unique id for the front end
 const generateUId = () => {
@@ -29,11 +33,33 @@ const stripHtmlAndTruncate = (text: string, wordLimit: number): string => {
 	// Remove HTML tags except for &nbsp; using a regular expression
 	const strippedText = decodedText.replace(/<[^>&]*>/g, "");
 
+<<<<<<< HEAD
 	// Split the text into words and limit the array to the specified word count
 	const wordsArray = strippedText.split(/\s+/).slice(0, wordLimit);
 
 	// Join the array back into a string with spaces between words
 	const truncatedText = wordsArray.join(" ");
+=======
+	// Split the text into words
+	const wordsArray = strippedText.split(/\s+/);
+	const isTruncated = wordsArray.length > wordLimit;
+	const truncatedWords = wordsArray.slice(0, wordLimit);
+
+	let truncatedText = truncatedWords.join(" ");
+	if (isTruncated) {
+		// add "..." if the text was truncated
+		truncatedText += "...";
+	}
+
+	// Enforce PROFILE_BIO_MAXSIZE character limit
+	if (truncatedText.length > PROFILE_BIO_MAXSIZE) {
+		truncatedText = truncatedText.slice(0, PROFILE_BIO_MAXSIZE);
+		// Optionally, add "..." if slicing cut off the text
+		if (!truncatedText.endsWith("...")) {
+			truncatedText = truncatedText.slice(0, -3) + "...";
+		}
+	}
+>>>>>>> origin/admin
 
 	return truncatedText;
 };

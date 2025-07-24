@@ -22,7 +22,10 @@ export async function getCurrentUser() {
 			include: {
 				profile: true,
 				timezone: true,
+<<<<<<< HEAD
 				favourites: true,
+=======
+>>>>>>> origin/admin
 			},
 		});
 
@@ -35,3 +38,29 @@ export async function getCurrentUser() {
 		return null;
 	}
 }
+<<<<<<< HEAD
+=======
+
+export async function getUserById(id) {
+	// gets the user by ID, used only Admin screens (Admin mode)
+	try {
+		const user = await prisma.user.findUnique({
+			where: {
+				id: id,
+			},
+			include: {
+				profile: true,
+				timezone: true,
+			},
+		});
+
+		if (!user) {
+			return null;
+		}
+
+		return user;
+	} catch (error) {
+		return null;
+	}
+}
+>>>>>>> origin/admin

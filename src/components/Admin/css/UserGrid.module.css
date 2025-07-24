@@ -1,0 +1,14 @@
+.grid-style {
+	display: flex;
+	flex-direction: column;
+	max-width: 1200px;
+	background: #fff;
+	border-radius: 5px;
+	background-color: yellow;
+}
+
+.grid-header {
+	background-color: yellow;
+	font-weight: bold;
+	color: #333;
+}

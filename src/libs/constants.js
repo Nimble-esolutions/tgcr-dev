@@ -1,13 +1,30 @@
 // baseURL //////////////////////////////////////////////////////////////////////////////////////////
 export const baseUrl =
+<<<<<<< HEAD
 	process.env.NODE_ENV === "production"
 		? "https://tgcr.net"
 		: "test"
+=======
+	typeof window !== "undefined"
+		? `${window.location.origin}`
+		: process.env.NODE_ENV === "production"
+		? "https://tgcr.net"
+		: process.env.NODE_ENV === "test"
+>>>>>>> origin/admin
 		? "https://stg.tgcr.net"
 		: "https://dev.tgcr.net";
 export const baseSiteName = "tGCR | the Global Classroom {addition}";
 export const baseS3 =
+<<<<<<< HEAD
 	process.env.NODE_ENV === "production" ? "tgcr.net" : "test" ? "stg.tgcr.net" : "dev.tgcr.net";
+=======
+	process.env.NODE_ENV === "production"
+		? "tgcr.net"
+		: process.env.NODE_ENV === "test"
+		? "stg.tgcr.net"
+		: "dev.tgcr.net";
+export const baseMailFrom = "tGCR Notifications";
+>>>>>>> origin/admin
 
 // REGEX //////////////////////////////////////////////////////////////////////////////////////////
 export const REGEX_PASSWORD =
@@ -23,12 +40,23 @@ export const REGEX_CURRENCY = /^\d+(\.\d{0,2})?$/;
 
 // Max file size for image uploads (in bytes)
 export const PROFILE_PICTURE_MAX_SIZE = 1024 * 1024; // 1 MB
+<<<<<<< HEAD
 // Minimum words in the bio for teacher's profile
 export const PROFILE_BIO_MINWORDS = 20;
+=======
+// Words in the bio for teacher's profile
+export const PROFILE_BIO_MINWORDS = 20;
+export const PROFILE_BIO_MAXSIZE = 4096; // 4 KB as defined in the DB schema
+>>>>>>> origin/admin
 // Max price per lesson for teacher's profile
 export const PROFILE_MAX_PRICE = 1000;
 // Pagination size on teacher's search page
 export const SEARCH_PAGE_SIZE = 10;
+<<<<<<< HEAD
+=======
+// Pagination size on admin grids
+export const ADMIN_SPAGE_SIZE = 10;
+>>>>>>> origin/admin
 // Max number of weeks for advance booking of lessons
 export const LESSON_BOOKING_MAX_WEEKS = 16;
 // Lesson Duration (minutes)

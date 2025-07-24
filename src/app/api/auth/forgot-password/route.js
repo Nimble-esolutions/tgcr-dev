@@ -3,7 +3,11 @@ import bcrypt from "bcrypt";
 import prisma from "@/libs/prismadb";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { REGEX_EMAIL } from "@/libs/constants";
+<<<<<<< HEAD
 import { sendTemporaryPassword } from "@/utils/mailer";
+=======
+import { sendTemporaryPassword } from "@/utils/mailerZOHO";
+>>>>>>> origin/admin
 import { apiResponse, APIStatus } from "@/utils/apiResponse";
 
 const generatePassword = () => {

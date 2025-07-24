@@ -17,3 +17,12 @@ export const UploadType = {
 	Image: ["jpg", "jpeg", "png", "gif"],
 	Zip: ["zip"],
 };
+<<<<<<< HEAD
+=======
+
+// ImpersonationType to identify impersonation
+export const ImpersonationType = {
+	Admin: "Admin",
+	User: "User",
+};
+>>>>>>> origin/admin

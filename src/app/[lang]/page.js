@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { getPartners } from "@/actions/admin/getPartners";
 import { getTestimonials } from "@/actions/admin/getTestimonials";
 import { getBannerCourses, getHomepageCourses } from "@/actions/getCourses";
@@ -14,6 +15,14 @@ import GetInstantCourses from "@/components/tGCRHome/GetInstantCourses";
 import Partner from "@/components/tGCRHome/Partner";
 import AffordableCertification from "@/components/tGCRHome/AffordableCertification";
 import SubscribeForm from "@/components/Shared/SubscribeForm";
+=======
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import { getDictionary } from "@/app/[lang]/dictionaries";
+import ASpot from "@/components/tGCRHome/ASpot";
+import SearchSpot from "@/components/tGCRHome/SearchSpot";
+import StepsToLearn from "@/components/tGCRHome/StepsToLearn";
+import BecomeTeacher from "@/components/tGCRHome/BecomeTeacher";
+>>>>>>> origin/admin
 
 // export async function generateMetadata({ params }) {
 // 	const { lang } = await params;
@@ -29,13 +38,17 @@ const page = async ({ params }) => {
 	const dict = await getDictionary(lang);
 	const currentUser = await getCurrentUser();
 
+<<<<<<< HEAD
 	// const { courses } = await getBannerCourses();
 	// const { home_courses } = await getHomepageCourses();
+=======
+>>>>>>> origin/admin
 	// const { partners } = await getPartners();
 	// const { testimonials } = await getTestimonials();
 
 	return (
 		<>
+<<<<<<< HEAD
 			{/* error! <Banner currentUser={currentUser} courses={courses} {...dict} lang={lang} /> */}
 			{/* error! <PopularCourses
 				currentUser={currentUser}
@@ -47,6 +60,10 @@ const page = async ({ params }) => {
 			{/* error! <Partner partners={partners} /> */}
 			<ASpot currentUser={currentUser} lang={lang} featureDict={dict.homepage.feature} />
 			<GetStarted
+=======
+			<ASpot currentUser={currentUser} lang={lang} featureDict={dict.homepage.feature} />
+			<SearchSpot
+>>>>>>> origin/admin
 				currentUser={currentUser}
 				lang={lang}
 				getStartedDict={dict.homepage.getStarted}
@@ -56,9 +73,19 @@ const page = async ({ params }) => {
 				lang={lang}
 				stepsToLearnDict={dict.homepage.stepsToLearn}
 			/>
+<<<<<<< HEAD
 			{/* <AboutUs currentUser={currentUser} lang={lang} aboutUsDict={dict.homepage.aboutUs} /> */}
 			{/* <GetInstantCourses currentUser={currentUser} lang={lang} {...dict} /> */}
 			{/* <AffordableCertification {...dict} /> */}
+=======
+			<BecomeTeacher
+				currentUser={currentUser}
+				lang={lang}
+				becomeTeacherDict={dict.homepage.becomeTeacher}
+			/>
+			{/* <AboutUs currentUser={currentUser} lang={lang} aboutUsDict={dict.homepage.aboutUs} /> */}
+			{/* <Partner partners={partners} /> */}
+>>>>>>> origin/admin
 			{/* <SubscribeForm {...dict} /> */}
 		</>
 	);

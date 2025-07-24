@@ -3,7 +3,15 @@ name: Staging Build and Manual Deploy
 on:
   push:
     branches: [stg]
+<<<<<<< HEAD
   workflow_dispatch: # Allows manual trigger
+=======
+  workflow_dispatch:
+    inputs:
+      rollback_version:
+        description: "Rollback version (leave empty for new deploy)"
+        required: false
+>>>>>>> origin/admin
 
 env:
   REGISTRY: ghcr.io
@@ -13,6 +21,10 @@ env:
 
 jobs:
   build-and-push:
+<<<<<<< HEAD
+=======
+    if: ${{ !github.event.inputs.rollback_version }}
+>>>>>>> origin/admin
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -76,11 +88,20 @@ jobs:
     needs: build-and-push
     environment: stg
     name: Staging Deployment
+<<<<<<< HEAD
     if: ${{ github.event_name == 'workflow_dispatch' }} # Manual trigger only
     # if: github.event_name == 'push' && github.ref == 'refs/heads/stg'
     runs-on: ubuntu-latest
 
     steps:
+=======
+    if: github.event_name == 'push' && github.ref == 'refs/heads/stg' && !github.event.inputs.rollback_version
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Image tag is ${{ needs.build-and-push.outputs.image_tag }}"
+
+>>>>>>> origin/admin
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -129,6 +150,10 @@ jobs:
 
             cat > ${{ env.APP_DIR }}/.env <<EOF
             APP_DIR="${{ env.APP_DIR }}"
+<<<<<<< HEAD
+=======
+            APP_NAME=${{ vars.APP_NAME }}
+>>>>>>> origin/admin
             ADMIN_EMAIL="${{ vars.ADMIN_EMAIL }}"
             APP_DOMAIN="${{ vars.APP_DOMAIN }}"
             NODE_ENV="${{ vars.APP_NODE_ENV }}"
@@ -146,6 +171,11 @@ jobs:
             EMAIL_SMTP_HOST="${{ secrets.EMAIL_SMTP_HOST }}"
             EMAIL_SMTP_PORT="${{ secrets.EMAIL_SMTP_PORT }}"
             EMAIL_SMTP_SECURE="${{ secrets.EMAIL_SMTP_SECURE }}"
+<<<<<<< HEAD
+=======
+            EMAIL_ZOHO_URL="${{ vars.EMAIL_ZOHO_URL }}"
+            EMAIL_ZOHO_TOKEN="${{ secrets.EMAIL_ZOHO_TOKEN }}"
+>>>>>>> origin/admin
             NEXT_PUBLIC_JAAS_APP_ID="${{ secrets.NEXT_PUBLIC_JAAS_APP_ID }}"
             JAAS_API_KID="${{ secrets.JAAS_API_KID }}"
             JAAS_API_SECRET="${{ secrets.JAAS_API_SECRET }}"   
@@ -192,3 +222,32 @@ jobs:
             cd ${{ env.APP_DIR }}
             sed -i 's/\r$//' deploy.sh # Normalize line endings
             ./deploy.sh
+<<<<<<< HEAD
+=======
+
+  rollback:
+    if: ${{ github.event.inputs.rollback_version }}
+    runs-on: ubuntu-latest
+    environment: stg
+    name: Staging Rollback
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Rollback Production
+        run: |
+          chmod +x ./scripts/rollback.sh
+          ./scripts/rollback.sh stg \
+            ${{ vars.DROPLET_IP }} \
+            "${{ secrets.DEPLOY_SSH_KEY }}" \
+            ${{ github.event.inputs.rollback_version }}
+
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1
+        if: always()
+        with:
+          channel-id: "deployments"
+          slack-message: "Production ROLLBACK to ${{ github.event.inputs.rollback_version }} ${{ job.status }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+>>>>>>> origin/admin
