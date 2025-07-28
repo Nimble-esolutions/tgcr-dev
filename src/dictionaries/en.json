@@ -70,6 +70,7 @@
 		"signIn": "Login",
 		"profileDropdown": {
 			"myLessons": "My Lessons",
+			"allTransactions": "All Transactions",
 			"myDashboard": "My Dashboard",
 			"myAvailabilityCal": "My Availability Calendar",
 			"myPricing": "My Pricing",
@@ -790,7 +791,8 @@
 		"status": "Status",
 		"pleaseWait": "Please wait...",
 		"joinBtn": "Join",
-		"updateBtn": "Update"
+		"updateBtn": "Update",
+		"myTransactionsLinkText": "My Transactions"
 	},
 	"liveLesson": {
 		"pageTitle": "Live Lessons",
@@ -815,5 +817,29 @@
 		"success": "Feedback submitted successfully.",
 		"pleaseWait": "Please wait...",
 		"submitBtn": "Submit"
+	},
+	"allTransaction": {
+		"noLessons": "No lessons found",
+		"pageTitle": "All Transactions",
+		"studentName": "Student Name",
+		"teacherName": "Teacher Name",
+		"dateTime": "Date & Time",
+		"subject": "Subject",
+		"amount": "Amount",
+		"paymentStatus": "Payment Status",
+		"transactionId": "Transaction ID",
+		"joinBtn": "Join",
+		"studentFilterPlaceholder": "Student Name or ID",
+		"teacherFilterPlaceholder": "Teacher Name or ID",
+		"filterLabel": "Payment Status",
+		"allStatus": "All",
+		"startDate": "Start Date",
+		"endDate": "End Date",
+		"searchPlaceholder": "Search by Transaction ID",
+		"euro": "(€)",
+		"prev": "Prev",
+		"next": "Next",
+		"paid": "Paid",
+		"pending": "Pending"
 	}
 }

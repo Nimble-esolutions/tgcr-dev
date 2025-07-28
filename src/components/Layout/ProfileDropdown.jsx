@@ -115,6 +115,21 @@ const ProfileDropdown = ({ currentUser, lang, profileDropdown }) => {
 						</>
 					)}
 
+					{/* For below button add is admin condition to display All Transactions screen only for admin */}
+					{isStudent && (
+						<>
+							<li>
+								<Link
+									href={`/${lang}/student/all-transactions`}
+									className="dropdown-item"
+								>
+									<i className="bx bx-book"></i>
+									{profileDropdown.allTransactions}
+								</Link>
+							</li>
+						</>
+					)}
+
 					<li>
 						<Link href={`/${lang}/profile/password`} className="dropdown-item">
 							<i className="bx bxs-lock"></i>
