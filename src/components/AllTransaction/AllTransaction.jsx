@@ -52,6 +52,7 @@ const LessonTransactionTable = ({ lang, currentUser, myLessonsDict }) => {
 
       const { data, pagination } = response.data;
 
+      console.log("data------------------>>>", data);
       setTransactionData(data);
       setTotalPages(pagination.totalPages);
     } catch (error) {
@@ -126,6 +127,7 @@ const LessonTransactionTable = ({ lang, currentUser, myLessonsDict }) => {
             <option value="All">{myLessonsDict.allStatus}</option>
             <option value="Paid">{myLessonsDict.paid}</option>
             <option value="Pending">{myLessonsDict.pending}</option>
+            {/* <option value="Failed">{myLessonsDict.failed}</option> */}
           </select>
         </div>
       </div>
@@ -170,10 +172,12 @@ const LessonTransactionTable = ({ lang, currentUser, myLessonsDict }) => {
 
                         {/* Lesson Date/Time */}
                         <td>
-                          {UIDayDateTime(
-                            lReq.requestedStart,
-                            currentUser.timezone?.tzIdentifier
-                          )}
+                          {lReq.requestedStart
+                            ? UIDayDateTime(
+                                lReq.requestedStart,
+                                currentUser.timezone?.tzIdentifier
+                              )
+                            : "-"}
                         </td>
 
                         {/* Subject/Class Level */}
@@ -182,7 +186,9 @@ const LessonTransactionTable = ({ lang, currentUser, myLessonsDict }) => {
                         </td>
 
                         {/* Amount */}
-                        <td>{lReq.teacherClassLevelCost?.costPerLesson || "-"}</td>
+                        <td>
+                          {lReq.teacherClassLevelCost?.costPerLesson || "-"}
+                        </td>
 
                         {/* Payment Status */}
                         <td>{lReq.paymentStatus || "-"}</td>
@@ -213,7 +219,7 @@ const LessonTransactionTable = ({ lang, currentUser, myLessonsDict }) => {
           {totalPages > 1 && (
             <div className="pagination-controls">
               <button onClick={handlePrev} disabled={currentPage === 1}>
-              {myLessonsDict.prev}
+                {myLessonsDict.prev}
               </button>
 
               {[...Array(totalPages)].map((_, i) => (

@@ -840,6 +840,7 @@
 		"prev": "Prev",
 		"next": "Next",
 		"paid": "Paid",
-		"pending": "Pending"
+		"pending": "Pending",
+		"failed": "Failed"
 	}
 }

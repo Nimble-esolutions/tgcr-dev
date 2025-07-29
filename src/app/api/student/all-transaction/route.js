@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
 
@@ -75,11 +76,11 @@ export async function POST(req) {
       });
     }
 
-    // Global search on transactionId, student name, or teacher name
+    // Global search on paymentId, student name, or teacher name
     if (search) {
       filters.push({
         OR: [
-          { orderId: { contains: search } },
+          { order: { paymentId: { contains: search } } },
           { student: { name: { contains: search } } },
           { instructor: { name: { contains: search } } },
         ],
@@ -108,11 +109,11 @@ export async function POST(req) {
               },
             },
           },
-          order: { select: { paymentStatus: true } }, // Get payment status
+          order: { select: { paymentStatus: true, paymentId: true } },
         },
       }),
 
-      prisma.lessonRequest.count({ where }), // Count for pagination
+      prisma.lessonRequest.count({ where }),
     ]);
 
     // Format and return the result
@@ -125,7 +126,7 @@ export async function POST(req) {
         requestedEnd: item.requestedEnd,
         teacherClassLevelCost: item.teacherClassLevelCost,
         paymentStatus: item.order?.paymentStatus || "-",
-        transactionId: item.orderId,
+        transactionId: item.order?.paymentId || "-",
       })),
       pagination: {
         currentPage: page,
@@ -135,7 +136,6 @@ export async function POST(req) {
       },
     });
   } catch (error) {
-    // Handle errors gracefully
     console.error("Transaction API Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error", details: error.message },
@@ -143,3 +143,172 @@ export async function POST(req) {
     );
   }
 }
+
+// import { NextResponse } from "next/server";
+// import prisma from "@/libs/prismadb";
+
+// export async function POST(req) {
+//   try {
+//     const {
+//       page = 1,
+//       limit = 10,
+//       search = "",
+//       studentQuery = "",
+//       teacherQuery = "",
+//       paymentStatus = "All",
+//       startDate,
+//       endDate,
+//     } = await req.json();
+
+//     const skip = (page - 1) * limit;
+//     const take = limit;
+
+//     const filters = [];
+
+//     if (studentQuery) {
+//       filters.push({
+//         student: {
+//           OR: [
+//             { name: { contains: studentQuery} },
+//             { id: { contains: studentQuery } },
+//           ],
+//         },
+//       });
+//     }
+
+//     if (teacherQuery) {
+//       filters.push({
+//         lessonRequests: {
+//           some: {
+//             instructor: {
+//               OR: [
+//                 { name: { contains: teacherQuery} },
+//                 { id: { contains: teacherQuery } },
+//               ],
+//             },
+//           },
+//         },
+//       });
+//     }
+
+//     if (paymentStatus !== "All") {
+//       filters.push({
+//         paymentStatus: {
+//           equals: paymentStatus,
+//         },
+//       });
+//     }
+
+//     if (startDate) {
+//       filters.push({
+//         lessonRequests: {
+//           some: {
+//             requestedStart: {
+//               gte: new Date(`${startDate}T00:00:00.000Z`),
+//             },
+//           },
+//         },
+//       });
+//     }
+
+//     if (endDate) {
+//       filters.push({
+//         lessonRequests: {
+//           some: {
+//             requestedStart: {
+//               lte: new Date(`${endDate}T23:59:59.999Z`),
+//             },
+//           },
+//         },
+//       });
+//     }
+
+//     if (search) {
+//       filters.push({
+//         OR: [
+//           { paymentId: { contains: search} },
+//           {
+//             student: {
+//               name: { contains: search},
+//             },
+//           },
+//           {
+//             lessonRequests: {
+//               some: {
+//                 instructor: {
+//                   name: { contains: search},
+//                 },
+//               },
+//             },
+//           },
+//         ],
+//       });
+//     }
+
+//     const where = filters.length ? { AND: filters } : {};
+
+//     const [orders, total] = await Promise.all([
+//       prisma.order.findMany({
+//         where,
+//         skip,
+//         take,
+//         orderBy: { createdOn: "desc" },
+//         include: {
+//           student: { select: { id: true, name: true } },
+//           lessonRequests: {
+//             orderBy: { requestedStart: "asc" },
+//             take: 1,
+//             include: {
+//               instructor: { select: { id: true, name: true } },
+//               teacherClassLevelCost: {
+//                 select: {
+//                   costPerLesson: true,
+//                   currency: true,
+//                   classLevel: {
+//                     select: { name: true },
+//                   },
+//                 },
+//               },
+//             },
+//           },
+//         },
+//       }),
+//       prisma.order.count({ where }),
+//     ]);
+
+//     const result = orders.map((order) => {
+//       const firstRequest = order.lessonRequests[0];
+
+//       return {
+//         id: order.id,
+//         paymentStatus: order.paymentStatus || "-",
+//         transactionId: order.paymentId || "-",
+//         requestedStart: firstRequest?.requestedStart || null,
+//         requestedEnd: firstRequest?.requestedEnd || null,
+//         student: order.student
+//           ? { id: order.student.id, name: order.student.name }
+//           : null,
+//         instructor: firstRequest?.instructor
+//           ? { id: firstRequest.instructor.id, name: firstRequest.instructor.name }
+//           : null,
+//         teacherClassLevelCost: firstRequest?.teacherClassLevelCost || null,
+//       };
+//     });
+
+//     return NextResponse.json({
+//       data: result,
+//       pagination: {
+//         currentPage: page,
+//         pageSize: limit,
+//         totalItems: total,
+//         totalPages: Math.ceil(total / limit),
+//       },
+//     });
+//   } catch (error) {
+//     console.error("Transaction API Error:", error);
+//     return NextResponse.json(
+//       { error: "Internal Server Error", details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }

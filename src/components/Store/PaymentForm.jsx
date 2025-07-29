@@ -102,7 +102,7 @@ const PaymentForm = ({ lang, dict, groupedCart }) => {
             orderId: uniqueId,
             studentID: itemData.items[0].studentId,
             paymentVia: session.payment_method_types[0],
-            paymentId: session.payment_intent,
+            paymentId: session.id,
             orderNumber: orderNumber,
           }),
         });
