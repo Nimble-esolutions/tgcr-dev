@@ -1,0 +1,11 @@
+.fileUpload {
+	cursor: pointer;
+	min-height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.fileUpload-label {
+	white-space: pre-line;
+}

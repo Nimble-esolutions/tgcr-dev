@@ -1,0 +1,598 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Master table: ClassLevel
+model ClassLevel {
+  id                    Int                     @id @default(autoincrement())
+  name                  String                  @unique
+  position              Int
+  TeacherClassLevelCost TeacherClassLevelCost[]
+  StudentClassLevel     StudentClassLevel[]
+}
+
+// Master table: Subject
+model Subject {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  position Int
+}
+
+// Master table: InstructionMedium
+model InstructionMedium {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  position Int
+}
+
+// Master table: EducationalQualification
+model EducationalQualification {
+  id                               Int                               @id @default(autoincrement())
+  name                             String                            @unique
+  position                         Int
+  teacherEducationalQualifications TeacherEducationalQualification[]
+}
+
+// Master table: ExperienceLevel
+model ExperienceLevel {
+  id                      Int                      @id @default(autoincrement())
+  name                    String                   @unique
+  position                Int
+  teacherExperienceLevels TeacherExperienceLevel[]
+}
+
+// Master table: Timezone
+model Timezone {
+  id             Int    @id @default(autoincrement())
+  name           String @unique
+  code           String @db.VarChar(10)
+  tzIdentifier   String
+  tzAbbreviation String @db.VarChar(10)
+  utcOffset      String @db.VarChar(10)
+  position       Int
+  users          User[]
+}
+
+// Master table: Country
+model Country {
+  id       Int    @id @default(autoincrement())
+  iso2Code String @db.VarChar(2)
+  name     String
+  region   String
+  dialCode String @db.VarChar(10)
+  position Int
+  users    User[]
+}
+
+// Master table: EducationalBoard
+model EducationalBoard {
+  id                       Int                       @id @default(autoincrement())
+  name                     String                    @unique
+  position                 Int
+  teacherEducationalBoards TeacherEducationalBoard[]
+  studentEducationalBoards StudentEducationalBoard[]
+}
+
+// Master table: FeedbackAttribute
+model FeedbackAttribute {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  key            String           @unique @db.VarChar(5)
+  position       Int
+  feedbackDetail FeedbackDetail[]
+}
+
+model User {
+  id                               String                            @id @default(uuid())
+  name                             String?
+  firstName                        String?
+  middleName                       String?
+  lastName                         String?
+  email                            String                            @unique
+  hashedPassword                   String?
+  image                            String?
+  role                             Role                              @default(Student)
+  gender                           Gender?
+  dob                              DateTime?                         @db.Date
+  timezoneId                       Int?
+  countryId                        Int?
+  isInstructor                     Boolean                           @default(false)
+  emailConfirmed                   Boolean                           @default(false)
+  emailConfirmedOn                 DateTime?
+  isActive                         Boolean                           @default(true)
+  hasAcceptedTnC                   Boolean                           @default(false)
+  createdOn                        DateTime                          @default(now())
+  updatedOn                        DateTime                          @updatedAt
+  accounts                         Account[]
+  courses                          Course[]
+  earnings                         Earning[]
+  favourites                       Favourite[]
+  instructorAvailability           InstructorAvailability[]
+  studentLessonRequests            LessonRequest[]                   @relation(name: "StudentRelation")
+  instructorLessonRequests         LessonRequest[]                   @relation(name: "InstructorRelation")
+  notifications                    Notification[]
+  payments                         Payment[]
+  profile                          Profile?
+  progresses                       Progress[]
+  country                          Country?                          @relation(fields: [countryId], references: [id])
+  timezone                         Timezone?                         @relation(fields: [timezoneId], references: [id])
+  studentClassLevel                StudentClassLevel?
+  studentEducationalBoard          StudentEducationalBoard?
+  teacherClassLevelCosts           TeacherClassLevelCost[]
+  teacherEducationalQualifications TeacherEducationalQualification[]
+  teacherExperienceLevels          TeacherExperienceLevel[]
+  teacherEducationalBoards         TeacherEducationalBoard[]
+  orders                           Order[]
+
+  @@index([countryId], map: "countryId")
+  @@index([timezoneId], map: "timezoneId")
+}
+
+model Profile {
+  id                   String   @id @default(uuid())
+  userId               String   @unique
+  bioTitle             String?
+  bio                  String?  @db.VarChar(4096)
+  phoneCountryId       Int?
+  phone                String?
+  linkedin             String?
+  website              String?
+  twitter              String?
+  facebook             String?
+  youtube              String?
+  subjects             String?  @db.VarChar(300)
+  nativeLanguage       String?  @db.VarChar(100)
+  instructionLanguages String?  @db.VarChar(300)
+  parentsFullName      String?
+  parentsEmail         String?
+  parentsCountryId     Int?
+  parentsContact       String?
+  activeStudents       Int?
+  totalLessons         Int?
+  averageRating        Float?
+  totalReviews         Int?
+  costAverage          Float?
+  createdOn            DateTime @default(now())
+  updatedOn            DateTime @updatedAt
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([parentsCountryId], map: "parentsCountryId")
+  @@index([phoneCountryId], map: "phoneCountryId")
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String
+  createdOn DateTime @default(now())
+  updatedOn DateTime @updatedAt
+  courses   Course[]
+}
+
+model Testimonial {
+  id          Int      @id @default(autoincrement())
+  name        String
+  image       String?
+  bioTitle    String
+  description String   @db.Text
+  createdOn   DateTime @default(now())
+  updatedOn   DateTime @updatedAt
+}
+
+model Partner {
+  id        Int      @id @default(autoincrement())
+  name      String
+  image     String?
+  createdOn DateTime @default(now())
+  updatedOn DateTime @updatedAt
+}
+
+model Course {
+  id                     Int         @id @default(autoincrement())
+  userId                 String
+  catId                  Int
+  title                  String
+  slug                   String      @unique
+  overview               String      @db.Text
+  regular_price          Float?
+  before_price           Float?
+  is_free                Boolean     @default(false)
+  lessons                String
+  duration               String
+  image                  String
+  access_time            AccessTime  @default(Lifetime)
+  requirements           String      @db.Text
+  what_you_will_learn    String      @db.Text
+  who_is_this_course_for String      @db.Text
+  approved               Boolean     @default(false)
+  in_home_page           Boolean     @default(false)
+  is_class               Boolean     @default(false)
+  createdOn              DateTime    @default(now())
+  updatedOn              DateTime    @updatedAt
+  assets                 Asset[]
+  category               Category    @relation(fields: [catId], references: [id], onDelete: Cascade)
+  user                   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  favourites             Favourite[]
+  progresses             Progress[]
+  videos                 Video[]
+
+  @@index([userId, catId])
+  @@index([catId], map: "Course_catId_fkey")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String?  @db.Text
+  teacherId String
+  studentId String
+  lessonId  Int
+  createdOn DateTime @default(now())
+
+  @@index([teacherId], map: "teacherId")
+  @@index([studentId], map: "studentId")
+  @@index([lessonId], map: "Review_lessonId_fkey")
+}
+
+model Video {
+  id          Int        @id @default(autoincrement())
+  courseId    Int
+  groupName   String?
+  title       String
+  thumbImage  String?
+  videoUrl    String
+  videoLength String?
+  isPreview   Boolean    @default(false)
+  shortId     Int        @default(0)
+  createdOn   DateTime   @default(now())
+  updatedOn   DateTime   @updatedAt
+  progresses  Progress[]
+  course      Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
+
+model Asset {
+  id          Int      @id @default(autoincrement())
+  courseId    Int
+  lectureName String
+  assetZip    String
+  createdOn   DateTime @default(now())
+  updatedOn   DateTime @updatedAt
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
+
+model Favourite {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  courseId  Int
+  createdOn DateTime @default(now())
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([courseId, userId])
+  @@index([userId], map: "Favourite_userId_fkey")
+}
+
+model Earning {
+  id        Int           @id @default(autoincrement())
+  cost      Float?
+  userId    String
+  courseId  Int
+  status    EarningStatus @default(Due)
+  createdOn DateTime      @default(now())
+  updatedOn DateTime      @updatedAt
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([courseId, userId])
+  @@index([userId], map: "Earning_userId_fkey")
+}
+
+model Progress {
+  id        Int      @id @default(autoincrement())
+  finished  Boolean  @default(true)
+  userId    String
+  courseId  Int
+  videoId   Int
+  createdOn DateTime @default(now())
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@index([courseId, userId, videoId])
+  @@index([userId], map: "Progress_userId_fkey")
+  @@index([videoId], map: "Progress_videoId_fkey")
+}
+
+model Coupon {
+  id                Int       @id @default(autoincrement())
+  code              String    @unique
+  discount          Float
+  expDate           DateTime?
+  status            Boolean?
+  deletedOn         DateTime?
+  activeForFullSite Boolean   @default(false)
+  createdOn         DateTime  @default(now())
+}
+
+model Subscription {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdOn DateTime @default(now())
+}
+
+model InstructorAvailability {
+  id        Int        @id @default(autoincrement())
+  userId    String
+  title     RecordType @default(Availability)
+  startWeek Int
+  endWeek   Int
+  rrule     String?    @db.Text
+  exdate    String?    @db.Text
+  duration  String
+  createdOn DateTime   @default(now())
+  updatedOn DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Order {
+  id             String             @id //uuid manully generated.
+  orderNumber    String             @unique
+  studentId      String
+  price          Decimal            @db.Decimal(10, 2)
+  paymentId      String?
+  paymentStatus  OrderPaymentStatus @default(Pending)
+  paymentVia     String?
+  createdOn      DateTime           @default(now())
+  updatedOn      DateTime           @updatedAt
+  student        User               @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lessonRequests LessonRequest[]
+}
+
+model LessonRequest {
+  id                      String                 @id @default(uuid())
+  orderId                 String
+  studentId               String
+  instructorId            String
+  requestedStart          DateTime
+  requestedEnd            DateTime
+  remarks                 String?                @db.Text
+  teacherClassLevelCostId Int?
+  createdOn               DateTime               @default(now())
+  updatedOn               DateTime               @updatedAt
+  status                  LessonRequestStatus    @default(Requested)
+  instructor              User                   @relation(name: "InstructorRelation", fields: [instructorId], references: [id])
+  student                 User                   @relation(name: "StudentRelation", fields: [studentId], references: [id])
+  teacherClassLevelCost   TeacherClassLevelCost? @relation(fields: [teacherClassLevelCostId], references: [id])
+  order                   Order                  @relation(fields: [orderId], references: [id])
+  lesson                  Lesson?
+
+  @@index([instructorId], map: "instructorId")
+  @@index([studentId], map: "studentId")
+}
+
+model Lesson {
+  id              Int           @id @default(autoincrement())
+  lessonRequestId String        @unique
+  teacherStart    DateTime?
+  teacherEnd      DateTime?
+  studentStart    DateTime?
+  studentEnd      DateTime?
+  lessonCounter   Int
+  payment         Payment[]
+  feedback        Feedback?
+  createdOn       DateTime      @default(now())
+  updatedOn       DateTime      @updatedAt
+  lessonRequest   LessonRequest @relation(fields: [lessonRequestId], references: [id])
+
+  @@index([lessonRequestId], map: "lessonRequestId")
+}
+
+model Feedback {
+  id              Int              @id @default(autoincrement())
+  lessonId        Int              @unique
+  remarks         String?          @db.Text
+  createdOn       DateTime         @default(now())
+  updatedOn       DateTime         @updatedAt
+  feedbackDetails FeedbackDetail[]
+  lesson          Lesson?          @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model FeedbackDetail {
+  id                     Int               @id @default(autoincrement())
+  feedbackId             Int
+  feedbackAttributeId    Int
+  feedbackAttributeKey   String
+  feedbackAttributeValue Int
+  feedback               Feedback          @relation(fields: [feedbackId], references: [id])
+  feedbackAttribute      FeedbackAttribute @relation(fields: [feedbackAttributeId], references: [id])
+}
+
+model Payment {
+  id            Int           @id @default(autoincrement())
+  lessonId      Int
+  amount        Decimal       @db.Decimal(10, 2)
+  paymentStatus PaymentStatus @default(Pending)
+  transactionId String?
+  userId        String?
+  user          User?         @relation(fields: [userId], references: [id])
+  lesson        Lesson?       @relation(fields: [lessonId], references: [id])
+
+  @@index([lessonId], map: "lessonId")
+  @@index([userId], map: "Payment_userId_fkey")
+}
+
+model Notification {
+  id        Int                @id @default(autoincrement())
+  userId    String
+  message   String             @db.Text
+  status    NotificationStatus @default(Unread)
+  createdAt DateTime           @default(now()) @db.Timestamp(0)
+  user      User               @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "userId")
+}
+
+model TeacherClassLevelCost {
+  id            Int             @id @default(autoincrement())
+  teacherId     String
+  classLevelId  Int
+  costPerLesson Decimal         @default(0) @db.Decimal(10, 2)
+  currency      String          @db.VarChar(5)
+  classLevel    ClassLevel      @relation(fields: [classLevelId], references: [id])
+  teacher       User            @relation(fields: [teacherId], references: [id])
+  lessonRequest LessonRequest[]
+
+  @@index([classLevelId], map: "classLevelId")
+  @@index([teacherId], map: "userId")
+}
+
+model StudentClassLevel {
+  studentId    String     @unique
+  classLevelId Int
+  classLevel   ClassLevel @relation(fields: [classLevelId], references: [id])
+  student      User       @relation(fields: [studentId], references: [id])
+
+  @@index([classLevelId], map: "classLevelId")
+  @@index([studentId], map: "studentId")
+}
+
+model TeacherEducationalQualification {
+  id                         Int                      @id @default(autoincrement())
+  teacherId                  String
+  educationalQualificationId Int
+  educationalQualification   EducationalQualification @relation(fields: [educationalQualificationId], references: [id])
+  teacher                    User                     @relation(fields: [teacherId], references: [id])
+
+  @@index([educationalQualificationId], map: "educationalQualificationId")
+  @@index([teacherId], map: "userId")
+}
+
+model TeacherExperienceLevel {
+  id                Int             @id @default(autoincrement())
+  teacherId         String
+  experienceLevelId Int
+  experienceLevel   ExperienceLevel @relation(fields: [experienceLevelId], references: [id])
+  teacher           User            @relation(fields: [teacherId], references: [id])
+
+  @@index([experienceLevelId], map: "experienceLevelId")
+  @@index([teacherId], map: "userId")
+}
+
+model TeacherEducationalBoard {
+  id                 Int              @id @default(autoincrement())
+  teacherId          String
+  educationalBoardId Int
+  educationalBoard   EducationalBoard @relation(fields: [educationalBoardId], references: [id])
+  teacher            User             @relation(fields: [teacherId], references: [id])
+
+  @@index([educationalBoardId], map: "educationalBoardId")
+  @@index([teacherId], map: "userId")
+}
+
+model StudentEducationalBoard {
+  studentId          String           @unique
+  educationalBoardId Int
+  student            User             @relation(fields: [studentId], references: [id])
+  educationalBoard   EducationalBoard @relation(fields: [educationalBoardId], references: [id])
+
+  @@index([educationalBoardId], map: "educationalBoardId")
+  @@index([studentId], map: "userId")
+}
+
+enum AccessTime {
+  Lifetime
+  Three_Months
+  Six_Months
+  One_Year
+}
+
+enum EarningStatus {
+  Due
+  Paid
+  Cancelled
+}
+
+enum AvailabilityDayOfWeek {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+enum NotificationStatus {
+  Unread
+  Read
+}
+
+enum PaymentStatus {
+  Pending
+  Completed
+  Failed
+}
+
+enum OrderPaymentStatus {
+  Pending
+  Paid
+  Failed
+  Refunded
+}
+
+enum LessonRequestStatus {
+  Requested
+  Accepted
+  Rejected
+  Cancelled
+  Started
+  Completed
+  Failed
+}
+
+enum Gender {
+  Male
+  Female
+  Unknown
+}
+
+enum Role {
+  Student
+  Instructor
+  Admin
+}
+
+enum RecordType {
+  Availability
+  Booking
+}

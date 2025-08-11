@@ -1,0 +1,222 @@
+/* Updated styles for the BookingForm component to align dates horizontally and timeslots vertically */
+
+.schedule-container {
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
+	margin-top: 2px;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	padding: 20px;
+}
+
+.schedule-container .week-navigation {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.schedule-container .week-navigation button {
+	padding: 8px 12px;
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+	color: #333;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s, color 0.3s;
+	margin: 2px;
+}
+
+.schedule-container .week-navigation button:hover {
+	background-color: #3877b0;
+	color: #fff;
+}
+
+.schedule-container .week-navigation button:disabled {
+	background-color: #e9ecef;
+	color: #6c757d;
+	cursor: not-allowed;
+}
+
+.schedule-container .week-navigation button:active {
+	background-color: #3877b0;
+	color: #fff;
+	border-color: #3877b0;
+}
+
+.schedule-container .dates-row {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 10px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.schedule-container .date-with-slots {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.schedule-container .date-label {
+	font-weight: bold;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #f3f3f3;
+}
+
+.schedule-container .times-column {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
+
+.schedule-container .time-slot {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	white-space: nowrap;
+}
+
+.schedule-container .time-slot:hover {
+	/* background-color: #e0e0e0; */
+	background-color: #3877b0;
+	color: #fff;
+}
+
+.schedule-container .time-slot:active {
+	/* background-color: #d0d0d0; */
+	background-color: #3877b0;
+	color: #fff;
+}
+
+.schedule-container .time-slot-disabled {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	transition: background-color 0.3s;
+	white-space: nowrap;
+	background-color: #e9ecef;
+	color: #6c757d;
+	cursor: not-allowed;
+}
+
+.schedule-container .time-slot-highlighted {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #3877b0;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	white-space: nowrap;
+}
+
+.schedule-container .selected-date {
+	background-color: #007bff;
+	color: white;
+	border-color: #0056b3;
+}
+
+.schedule-container .selected-time {
+	background-color: #28a745;
+	color: white;
+	border-color: #1e7e34;
+}
+
+.schedule-container .message-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	grid-column: span 7;
+	font-size: 16px;
+	color: #333;
+}
+
+.dialog .dialog-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+.dialog .dialog-content {
+	background: white;
+	padding: 10px;
+	border-radius: 8px;
+	border: 8px solid #ccc;
+	position: relative;
+	width: 40%;
+}
+
+.dialog .dialog-text {
+	display: block;
+	margin-bottom: 8px;
+	color: #221638;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.dialog .dialog-close-btn {
+	position: absolute;
+	content: "×";
+	color: darkgray;
+	border: 1px solid darkgray;
+	background-color: #eee;
+	border-radius: 3px;
+	padding: 2px 5px;
+	margin-left: 3px;
+	font-size: 10px;
+	top: 10px;
+	right: 10px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.dialog .button-row {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+
+.dialog .warning-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.dialog .warning-list li {
+	position: relative;
+	padding-left: 25px;
+	margin-left: 10px;
+	font-weight: normal;
+}
+
+.dialog .warning-list li:before {
+	content: "\f071"; /* Unicode for the FontAwesome warning icon */
+	font-family: FontAwesome;
+	/* font-family: "Font Awesome 5 Free";  */
+	font-weight: 900; /* Use the solid style of FontAwesome */
+	color: red;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}

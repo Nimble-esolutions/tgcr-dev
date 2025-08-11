@@ -1,0 +1,48 @@
+services:
+  app:
+    image: ${IMAGE_TAG:-ghcr.io/t-gcr/tgcr-app:latest}
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+    volumes:
+      - ./.env:/app/.env:ro
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/certbot/conf:/etc/letsencrypt
+    depends_on:
+      - app
+    networks:
+      - app-network
+    # environment:
+    #   - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.conf
+    #   - RATE_LIMIT_ZONE_SIZE=10m
+    #   - API_RATE_LIMIT=100r/m
+    #   - AUTH_RATE_LIMIT=20r/m
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/certbot/conf:/etc/letsencrypt
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,23 @@
+.starRow {
+	display: flex;
+	align-items: center;
+}
+
+.allStars {
+	min-width: 100px;
+}
+
+.star {
+	font-size: 16px;
+	min-width: 18px;
+	color: gray;
+	cursor: pointer;
+}
+
+.star.checked {
+	color: orange;
+}
+
+.star.disabled {
+	cursor: not-allowed;
+}
